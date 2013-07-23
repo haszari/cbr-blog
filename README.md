@@ -2,44 +2,10 @@
 
 I have forked this to get it working with posts stored in MongoDB and various other tweaks I might like.
 
+### node-blog 
+
 [node-blog](http://semu.mp/node-blog.html) is a basic blog written in Node.js with nice inline composing and markdown storage. All writing is done within your web browser using the [ace editor](http://ace.ajax.org/), published articles as well as drafts are stored as [markdown](http://daringfireball.net/projects/markdown/) files on your server.
-
-![node-blog](http://semu.mp/node-blog.png)
-
-You can easily manage your personal site with node-blog, see [semu.mp](http://semu.mp) for a working example using [node-blog](http://semu.mp/node-blog.html). There is a nice tag cloud available, an RSS news feed for sure and comments with the help from [disqus](http://disqus.com/).
-
-### Configuration
-
-Please edit `config.json` for setting up your own node-blog. Please pay attention to the strict JSON syntax, you can validate your configuration with [JSONLint](http://jsonlint.com/) if you run into any problems!
-
-    {
-      "host": "example.com",
-      "port": 8080,
-      "admin": {"username": "admin", "password": "loremipsumdolorsitamet"},
-      "author": "Lorem Ipsum",
-      "disqus": "loremipsum",
-      "paths": {
-        "articles": "markdown"}
-    }
-
-### Using node-blog
-
-After configuration is done just start node-blog with `node app.js` and point your web browser to the defined host and port. All needed information for customizing [node-blog](http://semu.mp/node-blog.html) and about composing articles can be found in the folder `markfiles/` or at your new node-blog…
-
-### Article Format
-
-    /*
-     Title: Lorem Ipsum dolor sit amet
-     Hidden: true
-     Date: 2012-02-10 22:17:09
-     Tags: Example
-     Category: Example
-     Sources:
-       example.com: http://example.com 
-    */
-
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas orci nibh, convallis ac venenatis at, aliquet eget neque. Nulla tortor nulla, varius quis ultricies sit amet, posuere nec velit. In hac habitasse platea dictumst. Suspendisse a nulla lacus, dignissim dignissim felis. Morbi ut dui lacus. Sed aliquet tristique malesuada. Morbi sit amet neque eu nunc fringilla sollicitudin. Quisque condimentum arcu non odio pulvinar eget placerat mauris auctor. Quisque quam nulla, vestibulum vitae tincidunt eu, lacinia eget metus. Nam commodo cursus facilisis. Nam convallis porta orci, in sodales erat vestibulum quis.
-    
+   
 ### MIT License
 
 Copyright (c) 2012 Sebastian Müller
