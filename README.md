@@ -1,3 +1,7 @@
+### Haszari's node-blog
+
+I have forked this to get it working with posts stored in MongoDB and various other tweaks I might like.
+
 [node-blog](http://semu.mp/node-blog.html) is a basic blog written in Node.js with nice inline composing and markdown storage. All writing is done within your web browser using the [ace editor](http://ace.ajax.org/), published articles as well as drafts are stored as [markdown](http://daringfireball.net/projects/markdown/) files on your server.
 
 ![node-blog](http://semu.mp/node-blog.png)
