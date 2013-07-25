@@ -1,9 +1,9 @@
 {
-  "host": "example.com",
-  "port": 8080,
-  "admin": {"username": "admin", "password": "loremipsumdolorsitamet"},
-  "author": "Lorem Ipsum",
-  "disqus": "loremipsum",
+  "host": "10.10.103.132",
+  "port": 8556,
+  "admin": {"username": "user", "password": "secret"},
+  "author": "User",
+  "disqus": "",
   "paths": {
     "articles": "markdown"}
 }
