@@ -1,0 +1,9 @@
+{
+  "host": "10.1.1.1",
+  "port": 8556,
+  "admin": {"username": "user", "password": "secret"},
+  "author": "User",
+  "disqus": "",
+  "paths": {
+    "articles": "markdown"}
+}
