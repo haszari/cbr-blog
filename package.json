@@ -15,6 +15,6 @@
   },
   "dependencies": {
     "kickstart": ">= 0.0.5",
-    "node-markdownblog": ">= 1.0.5"},
+    "markdown": ">= 0.5.0"},
   "devDependencies": {}
 }

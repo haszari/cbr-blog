@@ -4,7 +4,7 @@ YO YO !!!
  * Load markdownblog framework for data handling
  * Load config JSON file
  **/
-var mdb = require('node-markdownblog');
+var mdb = require('node-mongomd-blog');
 var config = JSON.parse(require('fs').readFileSync(__dirname + '/config.json','utf8'));
 
 /**
@@ -29,8 +29,8 @@ mdb.addLogin(config.admin);
 
 /**
  * Index markdown folder
- **/
 mdb.index(__dirname + '/' + config.paths.articles);
+ **/
 /**
  * Start express.js http servr with kickstart (more: http://semu.mp/node-kickstart.html)
  **/
@@ -113,19 +113,21 @@ srv.all('/posts', function(req, res) {
 
 /**
  * Display single blog post
- * @example http://semu.mp/neues-layout-und-so-3158.html
+ * @example http://semu.mp/hello-world
  **/
-srv.all(/([A-Za-z0-9\-]+\-([0-9]+)\.html)/, function(req, res) {
+srv.all('/:articleSlug', function(req, res) {
+  var articleSlug = req.params.articleSlug;
+  console.log(req.method, 'article', articleSlug);
   var updateData = req.param('data', null);
   var hasSession = req.session.valid;
   if (updateData && hasSession) {
-    mdb.updateArticle(req.params[1], updateData); }
+    mdb.updateArticle(articleSlug, updateData); }
   
-  var item = mdb.getArticle([req.params[1]], hasSession);
+  var item = mdb.getArticle([articleSlug], hasSession);
   if (!item) {
     throw new NotFound; }
-  if (item.url != mdb.getDefault('url') + req.url) {
-    return res.redirect(item.url, 301); }
+  // if (item.url != mdb.getDefault('url') + req.url) {
+  //   return res.redirect(item.url, 301); }
     
 	mdb.setMeta('url', item.url);
 	mdb.setMeta('title', item.name);
@@ -139,33 +141,34 @@ srv.all(/([A-Za-z0-9\-]+\-([0-9]+)\.html)/, function(req, res) {
  * Display articles by tag
  * @example http://semu.mp/tag/node.html
  **/
-srv.all(/\/tag\/([A-Za-z0-9\-]+\.html)/, function(req, res) {
-	var articles = mdb.getArticlesByTag(req.params[0].replace('.html','').toLowerCase().replace(/[^a-z0-9-]/g, '-')) || [];
-  mdb.setMeta('url', mdb.getDefault('url') + req.url);
-  mdb.setMeta('title', 'Tag: ' + req.params[0].replace('.html',''));
-  mdb.setMeta('headline', 'Tagged with ' + req.params[0].replace('.html',''));  
-  mdb.setMeta('current', 'posts');
+// srv.all(/\/tag\/([A-Za-z0-9\-]+)/, function(req, res) {
+// 	var articles = mdb.getArticlesByTag(req.params[0].replace('.html','').toLowerCase().replace(/[^a-z0-9-]/g, '-')) || [];
+//   mdb.setMeta('url', mdb.getDefault('url') + req.url);
+//   mdb.setMeta('title', 'Tag: ' + req.params[0].replace('.html',''));
+//   mdb.setMeta('headline', 'Tagged with ' + req.params[0].replace('.html',''));  
+//   mdb.setMeta('current', 'posts');
 	
-  res.render('posts', mdb.jadeData({tags: mdb.getTagCloud(30, 14), list: articles}, req));
-});
+//   res.render('posts', mdb.jadeData({tags: mdb.getTagCloud(30, 14), list: articles}, req));
+// });
 
 /**
  * Display about
  * @example http://semu.mp/about
  */
-srv.all('/about', function(req, res) {
-  mdb.setMeta('url', mdb.getDefault('url') + req.url);
-	mdb.setMeta('title', 'About');
+// srv.all('/about', function(req, res) {
+//   mdb.setMeta('url', mdb.getDefault('url') + req.url);
+// 	mdb.setMeta('title', 'About');
 	
-  res.render('about', mdb.jadeData({}, req));
-});
+//   res.render('about', mdb.jadeData({}, req));
+// });
 
 /**
  * Display Index
  * @example http://semu.mp/ 
  **/
 srv.all('/', function(req, res) {
-	mdb.setMeta('url', mdb.getDefault('url'));
+
+  mdb.setMeta('url', mdb.getDefault('url'));
 	mdb.setMeta('title', 'Home, node-blog');
   mdb.setMeta('current', 'home');
 
