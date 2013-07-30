@@ -23,7 +23,7 @@ mdb.setMeta('author', config.author);
 mdb.setMeta('disqus', config.disqus);
 
 // add admin login
-db.addLogin(config.admin);
+mdb.addLogin(config.admin);
 
 // set mongo db connection info
 mdb.setMongoConnectionString(config.mongoConnectionString);
@@ -121,8 +121,11 @@ srv.all('/:articleSlug', function(req, res) {
     mdb.updateArticle(articleSlug, updateData); }
   
   mdb.getArticle(articleSlug, function(item) {
-	if (!item) {
-	    throw new NotFound; }
+  	if (!item) {
+      res.statusCode = 404;
+      res.render('errors/404', mdb.jadeData({url: req.url}, req)); 
+      return;
+    } 
 	  // if (item.url != mdb.getDefault('url') + req.url) {
 	  //   return res.redirect(item.url, 301); }
 	    
