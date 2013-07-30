@@ -22,15 +22,12 @@ mdb.setMeta('url', 'http://' + config.host);
 mdb.setMeta('author', config.author);
 mdb.setMeta('disqus', config.disqus);
 
-/**
- * Add admin login
- **/
-mdb.addLogin(config.admin);
+// add admin login
+db.addLogin(config.admin);
 
-/**
- * Index markdown folder
-mdb.index(__dirname + '/' + config.paths.articles);
- **/
+// set mongo db connection info
+mdb.setMongoConnectionString(config.mongoConnectionString);
+
 /**
  * Start express.js http servr with kickstart (more: http://semu.mp/node-kickstart.html)
  **/
