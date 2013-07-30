@@ -99,13 +99,16 @@ srv.post('/api/auth', function(req, res) {
  * Display all posts available
  * @example http://semu.mp/posts
  **/
-srv.all('/posts', function(req, res) {
+srv.all('/posts/:pageNumber?', function(req, res) {
+  var pageNumber = req.params.pageNumber || 0;
   mdb.setMeta('url', mdb.getDefault('url') + req.url);
   mdb.setMeta('title', 'Articles');
   mdb.setMeta('headline', 'Recent Articles');
   mdb.setMeta('current', 'posts');  
 
-  res.render('posts', mdb.jadeData({list: mdb.getArticles(), tags: mdb.getTagCloud(30, 14)}, req));
+  mdb.getArticles(pageNumber, function(articles) {
+    res.render('posts', mdb.jadeData({list: articles}, req));
+  });
 });
 
 /**
@@ -145,7 +148,7 @@ srv.all('/:articleSlug', function(req, res) {
 srv.all('/tag/:tagname', function(req, res) {
   var tagname = req.params.tagname;
   console.log(req.method, 'tag', tagname);
-    var articles = mdb.getArticlesByTag(tagname, function(articles) {
+  mdb.getArticlesByTag(tagname, function(articles) {
     mdb.setMeta('url', mdb.getDefault('url') + req.url);
     mdb.setMeta('title', 'Tag: ' + tagname);
     mdb.setMeta('headline', 'Tagged with ' + tagname);  
@@ -175,11 +178,14 @@ srv.all('/', function(req, res) {
   mdb.setMeta('url', mdb.getDefault('url'));
 	mdb.setMeta('title', 'Home, node-blog');
   mdb.setMeta('current', 'home');
-
-  return res.render('home', mdb.jadeData({list: mdb.getArticles()}, req));
+  
+  var page = 0;
+  mdb.getArticles(0, function(articles) {
+    return res.render('home', mdb.jadeData({list:articles}, req));
+  });
 });
 
-/**
+/** TODO
  * Export RSS Feed
  * @example http://semu.mp/feed 
  **/
