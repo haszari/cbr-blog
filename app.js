@@ -123,18 +123,19 @@ srv.all('/:articleSlug', function(req, res) {
   if (updateData && hasSession) {
     mdb.updateArticle(articleSlug, updateData); }
   
-  var item = mdb.getArticle([articleSlug], hasSession);
-  if (!item) {
-    throw new NotFound; }
-  // if (item.url != mdb.getDefault('url') + req.url) {
-  //   return res.redirect(item.url, 301); }
-    
-	mdb.setMeta('url', item.url);
-	mdb.setMeta('title', item.name);
-	mdb.setMeta('headline', item.name);	
-	mdb.setMeta('current', 'posts');
-	
-  res.render('article', mdb.jadeData({article: item, auth: req.session.valid}, req));
+  mdb.getArticle(articleSlug, function(item) {
+	if (!item) {
+	    throw new NotFound; }
+	  // if (item.url != mdb.getDefault('url') + req.url) {
+	  //   return res.redirect(item.url, 301); }
+	    
+		mdb.setMeta('url', item.url);
+		mdb.setMeta('title', item.name);
+		mdb.setMeta('headline', item.name);	
+		mdb.setMeta('current', 'posts');
+		
+	  res.render('article', mdb.jadeData({article: item, auth: req.session.valid}, req));
+  });
 });
 
 /** todo
