@@ -112,7 +112,7 @@ srv.all('/posts/:pageNumber?', function(req, res) {
 });
 
 /**
- * Display single blog post
+ * Display/update single blog post by slug
  * @example http://semu.mp/hello-world
  **/
 srv.all('/:articleSlug', function(req, res) {
@@ -138,6 +138,37 @@ srv.all('/:articleSlug', function(req, res) {
 		mdb.setMeta('current', 'posts');
 		
 	  res.render('article', mdb.jadeData({article: item, auth: req.session.valid}, req));
+  });
+});
+
+/**
+ * Display/update single blog post by id
+ * @example http://semu.mp/postid/945ij4509mregop
+ **/
+srv.all('/postid/:postId', function(req, res) {
+  var postId = req.params.postId;
+  console.log(req.method, 'article by id', postId);
+  var updateData = req.param('data', null);
+  var hasSession = req.session.valid;
+  // TODO update
+  // if (updateData && hasSession) {
+  //   mdb.updateArticleById(postId, updateData); }
+  
+  mdb.getArticleById(postId, function(item) {
+    if (!item) {
+      res.statusCode = 404;
+      res.render('errors/404', mdb.jadeData({url: req.url}, req)); 
+      return;
+    } 
+    // if (item.url != mdb.getDefault('url') + req.url) {
+    //   return res.redirect(item.url, 301); }
+      
+    mdb.setMeta('url', item.url);
+    mdb.setMeta('title', item.name);
+    mdb.setMeta('headline', item.name); 
+    mdb.setMeta('current', 'posts');
+    
+    res.render('article', mdb.jadeData({article: item, auth: req.session.valid}, req));
   });
 });
 
