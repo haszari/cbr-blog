@@ -145,13 +145,14 @@ srv.all('/:articleSlug', function(req, res) {
 srv.all('/tag/:tagname', function(req, res) {
   var tagname = req.params.tagname;
   console.log(req.method, 'tag', tagname);
-  var articles = []; //mdb.getArticlesByTag(req.params[0].replace('.html','').toLowerCase().replace(/[^a-z0-9-]/g, '-')) || [];
-  mdb.setMeta('url', mdb.getDefault('url') + req.url);
-  mdb.setMeta('title', 'Tag: ' + tagname);
-  mdb.setMeta('headline', 'Tagged with ' + tagname);  
-  mdb.setMeta('current', 'posts');
-	
-  res.render('posts', mdb.jadeData({tags: mdb.getTagCloud(30, 14), list: articles}, req));
+    var articles = mdb.getArticlesByTag(tagname, function(articles) {
+    mdb.setMeta('url', mdb.getDefault('url') + req.url);
+    mdb.setMeta('title', 'Tag: ' + tagname);
+    mdb.setMeta('headline', 'Tagged with ' + tagname);  
+    mdb.setMeta('current', 'posts');
+    
+    res.render('posts', mdb.jadeData({tags: mdb.getTagCloud(30, 14), list: articles}, req));
+  });
 });
 
 /**
