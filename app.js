@@ -137,19 +137,21 @@ srv.all('/:articleSlug', function(req, res) {
   res.render('article', mdb.jadeData({article: item, auth: req.session.valid}, req));
 });
 
-/**
+/** todo
  * Display articles by tag
- * @example http://semu.mp/tag/node.html
+ * @example http://semu.mp/tag/bananas
  **/
-// srv.all(/\/tag\/([A-Za-z0-9\-]+)/, function(req, res) {
-// 	var articles = mdb.getArticlesByTag(req.params[0].replace('.html','').toLowerCase().replace(/[^a-z0-9-]/g, '-')) || [];
-//   mdb.setMeta('url', mdb.getDefault('url') + req.url);
-//   mdb.setMeta('title', 'Tag: ' + req.params[0].replace('.html',''));
-//   mdb.setMeta('headline', 'Tagged with ' + req.params[0].replace('.html',''));  
-//   mdb.setMeta('current', 'posts');
+srv.all('/tag/:tagname', function(req, res) {
+  var tagname = req.params.tagname;
+  console.log(req.method, 'tag', tagname);
+  var articles = []; //mdb.getArticlesByTag(req.params[0].replace('.html','').toLowerCase().replace(/[^a-z0-9-]/g, '-')) || [];
+  mdb.setMeta('url', mdb.getDefault('url') + req.url);
+  mdb.setMeta('title', 'Tag: ' + tagname);
+  mdb.setMeta('headline', 'Tagged with ' + tagname);  
+  mdb.setMeta('current', 'posts');
 	
-//   res.render('posts', mdb.jadeData({tags: mdb.getTagCloud(30, 14), list: articles}, req));
-// });
+  res.render('posts', mdb.jadeData({tags: mdb.getTagCloud(30, 14), list: articles}, req));
+});
 
 /**
  * Display about

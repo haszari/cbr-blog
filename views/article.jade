@@ -7,13 +7,16 @@
       - if (auth)
         .github.pull-right
           a#editMode.btn(href="#") Edit
-      h1 #{article.name} 
+      h1.articleTitle #{article.name} 
         small.time
           abbr.timeago(title=article.date.toISOString()) #{article.date.toISOString()}
         - if (article.readtime.min > 0)
           small.read , #{article.readtime.min} min #{article.readtime.sec} sec to read…
         - else 
           small.read , #{article.readtime.sec} sec to read…
+      .articleTags 
+        - for (var i = 0; i < article.tags.length; i++)
+          = article.tags[i].name + " "
     .row#articlerow
       a(name="article-content", id="article-content")    
       #preview.span12!= article.html
@@ -40,7 +43,7 @@
               ul.tags
                 - for (var i = 0; i < article.tags.length; i++)
                   li
-                    a(href="/tag/" + article.tags[i].url + ".html",title='Alle Artikel mit Tag "' + article.tags[i].name + '"') #{article.tags[i].name}
+                    a(href="/tag/" + article.tags[i].url,title='Alle Artikel mit Tag "' + article.tags[i].name + '"') #{article.tags[i].name}
           - if (article.sources.length > 0)
             tr
               td.key Links:
