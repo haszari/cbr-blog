@@ -85,13 +85,13 @@ html(lang="de",xmlns="http://www.w3.org/1999/xhtml",xmlns:og="http://ogp.me/ns#"
         form
           fieldset
             .clearfix
-              label(for="npid") New ID
-              .input
-                input#npid.xlarge(type="text","readonly"="readonly",value=session.maxID)
-            .clearfix
               label(for="ntitle") Headline
               .input
                 input#ntitle.xlarge(type="text")    
+            .clearfix
+              label(for="newSlug") Slug (optional)
+              .input
+                input#newSlug.xlarge(type="text","readonly"="readonly")
                 br 
                 br
                 span.help-block New articles will be hidden per default.

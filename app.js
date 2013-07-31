@@ -62,14 +62,18 @@ srv.all('*', function(req, res, next) {
  **/
 srv.all('/api/new', function(req, res) {
   var newName = null;
-  if (req.session && req.body.name && (newName = mdb.createNewArticle(req.body.name)) != null) {
-    return res.end(newName); } 
+  if (req.session) {
+    mdb.createNewArticle(req.body.name, req.body.slug, function(articleUrl) {
+      console.log('article created', articleUrl);
+      return res.end(articleUrl); 
+    });
+  } 
   else {
-    return res.end('0'); }
+    return res.end(''); }
 });
 
 /**
- * Callback for creating new articles
+ * Callback for getting drafts
  **/
 srv.all('/api/drafts', function(req, res) {
   var newName = null;

@@ -92,14 +92,16 @@ $(document).ready(function() {
     $('#composecreate').click(function(e) {
       e.preventDefault();      
       $('#composestatus').css('display', 'block').removeClass('failed').removeClass('done').addClass('loader');
-      $.post("/api/new", { pid: $('#npid').val(), name: $('#ntitle').val() }, function(data) {
-        if (data == '0') {
-          $('#composestatus').html("Failed to create article!");
-          $('#composestatus').removeClass('loader').removeClass('done').addClass('failed'); }
+      $.post("/api/new", { slug: $('#newSlug').val(), name: $('#ntitle').val() }, function(data) {
+        if (data) {
+          // $('#composestatus').html("Article created, Please wait!");
+          // $('#composestatus').removeClass('loader').removeClass('failed').addClass('done');
+          window.location = data; 
+        }
         else {
-          $('#composestatus').html("Article created, Please wait!");
-          $('#composestatus').removeClass('loader').removeClass('failed').addClass('done');
-          window.setTimeout('location.href = "/' + data + '.html";', 500); }
+          $('#composestatus').html("Failed to create article!");
+          $('#composestatus').removeClass('loader').removeClass('done').addClass('failed'); 
+        }
       });
     });
     
