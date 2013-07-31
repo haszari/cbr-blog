@@ -21,10 +21,12 @@ var editMode = function() {
     $('<div class="github pull-right"><a href="#" class="btn" id="composesave">Save</a><a href="#" id="composepreview" class="btn primary" style="margin-left: 10px;">Preview</a></div>').insertBefore('h1');
     $('.time, .read, #editMode').remove();
 
-    $('.articleTitle').attr({contentEditable: true});
-    $('.articleTags').attr({contentEditable: true});
+    $('#articleTitle').attr({contentEditable: true});
+    $('#articleTags').attr({contentEditable: true});
+    $('#articleSlug').attr({contentEditable: true});
     
-    $('.articleTags').show();
+    $('#articleTags').show();
+    $('#articleSlug').show();
     
     var converter = new Showdown.converter(), text = '';
     $('#logindata').bind('show', function() { $('#uname').focus(); });
@@ -32,13 +34,18 @@ var editMode = function() {
       e.preventDefault();
       $.post(location.href, { 
           data: {
-            title: $('.articleTitle').text(),
-            tags: $('.articleTags').text(),
+            title: $('#articleTitle').text(),
+            tags: $('#articleTags').text(),
             md: editor.getSession().getValue(),
+            idHex: $('#articleIdHex').text(),
+            slug: $('#articleSlug').text(),
           }
         }, 
-        function(data) { 
-          location.reload(); 
+        function(data) {
+          // redirect to changed post
+          if (data) {
+            window.location = data; 
+          }
         });
     });
     

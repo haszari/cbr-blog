@@ -121,24 +121,30 @@ srv.all('/:articleSlug', function(req, res) {
   var updateData = req.param('data', null);
   var hasSession = req.session.valid;
   if (updateData && hasSession) {
-    mdb.updateArticle(articleSlug, updateData); }
-  
-  mdb.getArticle(articleSlug, function(item) {
-  	if (!item) {
-      res.statusCode = 404;
-      res.render('errors/404', mdb.jadeData({url: req.url}, req)); 
-      return;
-    } 
-	  // if (item.url != mdb.getDefault('url') + req.url) {
-	  //   return res.redirect(item.url, 301); }
-	    
-		mdb.setMeta('url', item.url);
-		mdb.setMeta('title', item.name);
-		mdb.setMeta('headline', item.name);	
-		mdb.setMeta('current', 'posts');
-		
-	  res.render('article', mdb.jadeData({article: item, auth: req.session.valid}, req));
-  });
+    mdb.updateArticle(updateData, function(articleUrl) {
+      console.log('article updated, we called back', articleUrl);
+      res.send(articleUrl);
+      return;    
+    }); 
+  }
+  else {
+    mdb.getArticle(articleSlug, function(item) {
+    	if (!item) {
+        res.statusCode = 404;
+        res.render('errors/404', mdb.jadeData({url: req.url}, req)); 
+        return;
+      } 
+  	  // if (item.url != mdb.getDefault('url') + req.url) {
+  	  //   return res.redirect(item.url, 301); }
+  	    
+  		mdb.setMeta('url', item.url);
+  		mdb.setMeta('title', item.name);
+  		mdb.setMeta('headline', item.name);	
+  		mdb.setMeta('current', 'posts');
+  		
+  	  res.render('article', mdb.jadeData({article: item, auth: req.session.valid}, req));
+    });
+  }
 });
 
 /**
@@ -150,26 +156,31 @@ srv.all('/postid/:postId', function(req, res) {
   console.log(req.method, 'article by id', postId);
   var updateData = req.param('data', null);
   var hasSession = req.session.valid;
-  // TODO update
-  // if (updateData && hasSession) {
-  //   mdb.updateArticleById(postId, updateData); }
-  
-  mdb.getArticleById(postId, function(item) {
-    if (!item) {
-      res.statusCode = 404;
-      res.render('errors/404', mdb.jadeData({url: req.url}, req)); 
-      return;
-    } 
-    // if (item.url != mdb.getDefault('url') + req.url) {
-    //   return res.redirect(item.url, 301); }
+  if (updateData && hasSession) {
+    mdb.updateArticle(updateData, function(articleUrl) {
+      console.log('article updated, we called back', articleUrl);
+      res.send(articleUrl);
+      return;    
+    }); 
+  }
+  else {
+    mdb.getArticleById(postId, function(item) {
+      if (!item) {
+        res.statusCode = 404;
+        res.render('errors/404', mdb.jadeData({url: req.url}, req)); 
+        return;
+      } 
+      // if (item.url != mdb.getDefault('url') + req.url) {
+      //   return res.redirect(item.url, 301); }
+        
+      mdb.setMeta('url', item.url);
+      mdb.setMeta('title', item.name);
+      mdb.setMeta('headline', item.name); 
+      mdb.setMeta('current', 'posts');
       
-    mdb.setMeta('url', item.url);
-    mdb.setMeta('title', item.name);
-    mdb.setMeta('headline', item.name); 
-    mdb.setMeta('current', 'posts');
-    
-    res.render('article', mdb.jadeData({article: item, auth: req.session.valid}, req));
-  });
+      res.render('article', mdb.jadeData({article: item, auth: req.session.valid}, req));
+    });
+  }
 });
 
 /** todo
