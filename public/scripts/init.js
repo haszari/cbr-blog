@@ -40,6 +40,7 @@ var editMode = function() {
             md: editor.getSession().getValue(),
             idHex: $('#articleIdHex').text(),
             slug: $('#articleSlug').text(),
+            published: ($('#articlePublished input').attr('checked') == 'checked'),
           }
         }, 
         function(data) {
