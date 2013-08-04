@@ -99,6 +99,18 @@ srv.post('/api/auth', function(req, res) {
   });
 });
 
+
+/** TODO
+ * Export RSS Feed
+ * @example http://semu.mp/feed 
+ **/
+srv.all('/feed', function(req, res) {
+  var articles = mdb.getArticles(0, false, function(articles) {
+    console.log(articles);
+    return res.render('feed', mdb.jadeData({url: mdb.getDefault('url') + req.url, layout: false, list: articles}, req));    
+  }); // page 0, only published posts
+});
+
 /**
  * Display all posts available
  * @example http://semu.mp/posts
@@ -242,15 +254,6 @@ srv.all('/', function(req, res) {
   mdb.getArticles(0, includeUnpublished, function(articles) {
     return res.render('home', mdb.jadeData({list:articles}, req));
   });
-});
-
-/** TODO
- * Export RSS Feed
- * @example http://semu.mp/feed 
- **/
-srv.all('/feed', function(req, res) {
-  var articles = mdb.getArticles(0, false); // page 0, only published posts
-  return res.render('feed', mdb.jadeData({url: mdb.getDefault('url') + req.url, layout: false, list: articles}, req));
 });
 
 /**
