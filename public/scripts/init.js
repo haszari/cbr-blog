@@ -26,6 +26,7 @@ var editMode = function() {
     $('#articleSlug').attr({contentEditable: true});
     
     $('#articleTags').show();
+    $('#articlePublished').show();
     $('#articleSlug').show();
     
     var converter = new Showdown.converter(), text = '';

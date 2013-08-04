@@ -17,6 +17,9 @@
       #articleTags 
         - for (var i = 0; i < article.tags.length; i++)
           = article.tags[i].name + " "
+      label#articlePublished
+        span Published
+        input(type="checkbox", checked=(article.published ? "checked" : undefined)) 
     .row#articlerow
       a(name="article-content", id="article-content")    
       #preview.span12!= article.html
