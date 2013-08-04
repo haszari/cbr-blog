@@ -105,12 +105,15 @@ srv.post('/api/auth', function(req, res) {
  **/
 srv.all('/posts/:pageNumber?', function(req, res) {
   var pageNumber = req.params.pageNumber || 0;
+  var hasSession = req.session.valid;
+  var includeUnpublished = hasSession;
+
   mdb.setMeta('url', mdb.getDefault('url') + req.url);
   mdb.setMeta('title', 'Articles');
   mdb.setMeta('headline', 'Recent Articles');
   mdb.setMeta('current', 'posts');  
 
-  mdb.getArticles(pageNumber, function(articles) {
+  mdb.getArticles(pageNumber, includeUnpublished, function(articles) {
     res.render('posts', mdb.jadeData({list: articles}, req));
   });
 });
@@ -121,9 +124,10 @@ srv.all('/posts/:pageNumber?', function(req, res) {
  **/
 srv.all('/:articleSlug', function(req, res) {
   var articleSlug = req.params.articleSlug;
-  console.log(req.method, 'article', articleSlug);
   var updateData = req.param('data', null);
   var hasSession = req.session.valid;
+  var includeUnpublished = hasSession;
+
   if (updateData && hasSession) {
     mdb.updateArticle(updateData, function(articleUrl) {
       console.log('article updated, we called back', articleUrl);
@@ -132,7 +136,7 @@ srv.all('/:articleSlug', function(req, res) {
     }); 
   }
   else {
-    mdb.getArticle(articleSlug, function(item) {
+    mdb.getArticle(articleSlug, includeUnpublished, function(item) {
     	if (!item) {
         res.statusCode = 404;
         res.render('errors/404', mdb.jadeData({url: req.url}, req)); 
@@ -157,18 +161,22 @@ srv.all('/:articleSlug', function(req, res) {
  **/
 srv.all('/postid/:postId', function(req, res) {
   var postId = req.params.postId;
+  var hasSession = req.session.valid;
+  var includeUnpublished = hasSession;
+
   console.log(req.method, 'article by id', postId);
+
   var updateData = req.param('data', null);
   var hasSession = req.session.valid;
   if (updateData && hasSession) {
     mdb.updateArticle(updateData, function(articleUrl) {
-      console.log('article updated, we called back', articleUrl);
       res.send(articleUrl);
       return;    
     }); 
   }
+
   else {
-    mdb.getArticleById(postId, function(item) {
+    mdb.getArticleById(postId, includeUnpublished, function(item) {
       if (!item) {
         res.statusCode = 404;
         res.render('errors/404', mdb.jadeData({url: req.url}, req)); 
@@ -193,8 +201,11 @@ srv.all('/postid/:postId', function(req, res) {
  **/
 srv.all('/tag/:tagname', function(req, res) {
   var tagname = req.params.tagname;
+  var hasSession = req.session.valid;
+  var includeUnpublished = hasSession;
+
   console.log(req.method, 'tag', tagname);
-  mdb.getArticlesByTag(tagname, function(articles) {
+  mdb.getArticlesByTag(tagname, includeUnpublished, function(articles) {
     mdb.setMeta('url', mdb.getDefault('url') + req.url);
     mdb.setMeta('title', 'Tag: ' + tagname);
     mdb.setMeta('headline', 'Tagged with ' + tagname);  
@@ -220,13 +231,15 @@ srv.all('/tag/:tagname', function(req, res) {
  * @example http://semu.mp/ 
  **/
 srv.all('/', function(req, res) {
+  var hasSession = req.session.valid;
+  var includeUnpublished = hasSession;
 
   mdb.setMeta('url', mdb.getDefault('url'));
 	mdb.setMeta('title', 'Home, node-blog');
   mdb.setMeta('current', 'home');
   
   var page = 0;
-  mdb.getArticles(0, function(articles) {
+  mdb.getArticles(0, includeUnpublished, function(articles) {
     return res.render('home', mdb.jadeData({list:articles}, req));
   });
 });
@@ -236,7 +249,8 @@ srv.all('/', function(req, res) {
  * @example http://semu.mp/feed 
  **/
 srv.all('/feed', function(req, res) {
-  return res.render('feed', mdb.jadeData({url: mdb.getDefault('url') + req.url, layout: false, list: mdb.getArticles()}, req));
+  var articles = mdb.getArticles(0, false); // page 0, only published posts
+  return res.render('feed', mdb.jadeData({url: mdb.getDefault('url') + req.url, layout: false, list: articles}, req));
 });
 
 /**
