@@ -1,10 +1,8 @@
-/**
+var mdb = require('./mongoblog');
 
-YO YO !!!
- * Load markdownblog framework for data handling
+/**
  * Load config JSON file
  **/
-var mdb = require('node-mongomd-blog');
 var config = JSON.parse(require('fs').readFileSync(__dirname + '/config.json','utf8'));
 
 /**
