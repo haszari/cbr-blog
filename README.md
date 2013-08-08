@@ -1,6 +1,10 @@
-### Haszari's node-blog
+### Drongo - MongoDB-backed port of node-blog
 
-I have forked this to get it working with posts stored in MongoDB and various other tweaks I might like.
+I have forked node-blog to get it working with posts stored in MongoDB and various other tweaks I might like.
+
+Also this project combines both the blog engine library and the node front-end into a single module for ease of use.
+
+Credit to the original author. Excerpt of original readme follows...
 
 ### node-blog 
 
