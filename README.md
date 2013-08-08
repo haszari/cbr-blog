@@ -4,6 +4,8 @@ I have forked node-blog to get it working with posts stored in MongoDB and vario
 
 Also this project combines both the blog engine library and the node front-end into a single module for ease of use.
 
+Credit to the original author. Excerpt of original readme follows...
+
 ### node-blog 
 
 [node-blog](http://semu.mp/node-blog.html) is a basic blog written in Node.js with nice inline composing and markdown storage. All writing is done within your web browser using the [ace editor](http://ace.ajax.org/), published articles as well as drafts are stored as [markdown](http://daringfireball.net/projects/markdown/) files on your server.
