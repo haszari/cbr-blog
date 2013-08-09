@@ -96,6 +96,16 @@ exports.checkLogin = function(name, password, callback) {
   return callback(!found);
 };
 
+var removeDudTags = function(rawTags) {
+  var cleanTags = [];
+  for (var i=0; i<rawTags.length; i++) {
+    if (rawTags[i].length > 0) {
+      cleanTags.push(rawTags[i]);
+    }
+  }
+  return cleanTags;
+}
+
 exports.processMongoArticle = function(mongoItem) {
   var fullArticle = {
     // persisted properties
@@ -117,6 +127,7 @@ exports.processMongoArticle = function(mongoItem) {
     sources: [], 
   };
 
+  mongoItem.tags = removeDudTags(mongoItem.tags);
   var tags = [];
   if (mongoItem.tags) {
     for (var i=0; i<mongoItem.tags.length; i++) {
@@ -174,10 +185,12 @@ exports.updateArticle = function(data, callback) {
 
   var mongoId = data.idHex ? {_id: new BSON.ObjectID(data.idHex)} : null;
 
+  var cleanTags = removeDudTags(data.tags.split(" "));
+
   var mongoRecord = {
     md: data.md || "",
     name: data.title || "",
-    tags: data.tags ? data.tags.split(" ") : [],
+    tags: cleanTags,
     slug: data.slug || "id" + data.idHex,
     published: (data.published == "true"),
     modified: new Date(),
