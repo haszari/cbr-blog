@@ -43,14 +43,10 @@ html(lang="de",xmlns="http://www.w3.org/1999/xhtml",xmlns:og="http://ogp.me/ns#"
         a(href="/") About
       .secondary
         - if (session.valid) 
-          a(href="#") Logout
+          a(href="#") Logout 
+            //- placeholder, I need to implement logout!!
         - else
           a#login(href="#") Login
-      //-  - if (session.valid) 
-      //-    a(href=#) Compose
-        a(href=#) Logout
-      //-  - else
-      //-    a(href="/") Login
       //- section#navigation //- note this is a block comment .. nestedness, whitespace
         .topbar-wrapper(style="z-index: 5;")
           .topbar(data-dropdown="dropdown")
