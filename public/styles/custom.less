@@ -1,3 +1,11 @@
+// base layout/framework stuff
+
+.hide {
+  display: none;
+}
+
+// (existing) blog specific stuff
+
 .cLeft { text-align: left !important; }
 #article-list h3 { padding: 0; margin: 0; line-height: 34px;}
 #article-list .datefield { line-height: 35px }
@@ -106,6 +114,8 @@ margin-top: 7px !important;
   margin-top: 12px;
 }
 
+// (my newer) blog specific stuff
+
 #articleTags {
   display:none;
   width:100%;
@@ -113,4 +123,80 @@ margin-top: 7px !important;
 
 #articlePublished {
   display:none;
+}
+
+// drongo template stuff
+
+body {
+  background-image: url(/img/squairy_light.png);
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+}
+/* base styles, and default mobile layout */
+.menu {
+  background-image: url(/img/squairy_light.png);
+  background-color: #345678;
+  width: 100%;
+  border-style: dotted;
+  border-width: 0px;
+  border-bottom-width: 1.5px;
+  border-color: lightgray;
+}
+.menu div, .menu a {
+  margin: 8px;
+  color: white;
+  display: inline-table;
+}
+.menu .logo {
+  height: 35px;
+  width: 32px;     
+  background-image: url(/img/CartoonMixer2011-150px.png);
+  background-repeat: no-repeat;      
+  background-size: contain;
+  background-position: center center;
+  float: left;
+}
+.menu .secondary {
+  float: right;
+  position: static;
+}
+.content {
+  padding: 8px;
+}
+h1 {
+  margin-top: 2px;
+}
+a {
+  text-decoration: none;
+}
+/* desktop override to put menu on the side */
+@media (min-width: 501px) {
+  .menu {
+     position: fixed;
+     width: 90px;
+     height: 100%;
+     text-align: right;
+     border-width: 0px;
+     border-right-width: 1px;
+  }
+  .menu div {
+     display: block;
+  }
+  .menu .logo {
+     height: 70px;
+     width: 75px;
+  }
+  .content {
+     margin-left: 90px;
+  }
+  .menu .secondary {
+     position: absolute;
+     bottom: 0;
+     right: 0;
+  }
+}
+@media (max-width: 500px) {
+  img {
+     max-width: 100%;
+  }
 }

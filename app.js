@@ -15,7 +15,7 @@ mdb.setDefault('url', 'http://' + config.host + (config.port == '80' ? '' : ':' 
  * Set basic variables passed to jade template
  **/
  
-mdb.setMeta('site', config.host); 
+mdb.setMeta('site', config.siteName); 
 mdb.setMeta('url', 'http://' + config.host);
 mdb.setMeta('author', config.author);
 mdb.setMeta('disqus', config.disqus);
@@ -38,7 +38,7 @@ var srv = kickstart.srv();
 srv.error(function(err, req, res, next){
   if (err instanceof NotFound) {
     mdb.setMeta('url', mdb.getDefault('url') + req.url);
-    mdb.setMeta('title', '404 Not Found');
+    mdb.setMeta('title', '404 - Not Found');
       
     res.statusCode = 404;
     res.render('errors/404', mdb.jadeData({url: req.url}, req)); } 
@@ -119,7 +119,7 @@ srv.all('/posts/:pageNumber?', function(req, res) {
   var includeUnpublished = hasSession;
 
   mdb.setMeta('url', mdb.getDefault('url') + req.url);
-  mdb.setMeta('title', 'Articles');
+  //mdb.setMeta('title', 'Articles');
   mdb.setMeta('headline', 'Recent Articles');
   mdb.setMeta('current', 'posts');  
 
@@ -156,7 +156,7 @@ srv.all('/:articleSlug', function(req, res) {
   	  //   return res.redirect(item.url, 301); }
   	    
   		mdb.setMeta('url', item.url);
-  		mdb.setMeta('title', item.name);
+  		//mdb.setMeta('title', item.name);
   		mdb.setMeta('headline', item.name);	
   		mdb.setMeta('current', 'posts');
   		
@@ -196,7 +196,7 @@ srv.all('/postid/:postId', function(req, res) {
       //   return res.redirect(item.url, 301); }
         
       mdb.setMeta('url', item.url);
-      mdb.setMeta('title', item.name);
+      //mdb.setMeta('title', item.name);
       mdb.setMeta('headline', item.name); 
       mdb.setMeta('current', 'posts');
       
@@ -217,7 +217,7 @@ srv.all('/tag/:tagname', function(req, res) {
   console.log(req.method, 'tag', tagname);
   mdb.getArticlesByTag(tagname, includeUnpublished, function(articles) {
     mdb.setMeta('url', mdb.getDefault('url') + req.url);
-    mdb.setMeta('title', 'Tag: ' + tagname);
+    //mdb.setMeta('title', 'Tag: ' + tagname);
     mdb.setMeta('headline', 'Tagged with ' + tagname);  
     mdb.setMeta('current', 'posts');
     
@@ -245,7 +245,7 @@ srv.all('/', function(req, res) {
   var includeUnpublished = hasSession;
 
   mdb.setMeta('url', mdb.getDefault('url'));
-	mdb.setMeta('title', 'Home, node-blog');
+	//mdb.setMeta('title', 'Home, node-blog');
   mdb.setMeta('current', 'home');
   
   var page = 0;
