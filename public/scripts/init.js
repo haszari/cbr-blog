@@ -18,7 +18,7 @@ var editor = null;
 var editMode = function() {
   if ($('#articlerow').length > 0) {
     $('<div id="articleeditor" style="display: none; height: 480px;"><div class="row" id="articleeditframe" style="height: 448px; opacity: 0;"><div class="span16"><div id="edit" style="width:935px; height:450px">' + $('#articlemarkdown').html() + '</div><br style="clear:both" /></div></div><hr /></div>').insertBefore('#articlerow');
-    $('<div class="github pull-right"><a href="#" class="btn" id="composesave">Save</a><a href="#" id="composepreview" class="btn primary" style="margin-left: 10px;">Preview</a></div>').insertBefore('h1');
+    $('<div class="github pull-right"><a href="#" class="btn" id="composesave">Save</a>').insertBefore('h1');
     $('.time, .read, #editMode').remove();
 
     $('#articleTitle').attr({contentEditable: true});

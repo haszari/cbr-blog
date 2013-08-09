@@ -128,7 +128,7 @@ exports.processMongoArticle = function(mongoItem) {
   }
   fullArticle.tags = tags;
 
-  if (!fullArticle.html) {
+  if (fullArticle.md) {
     fullArticle.html = this.markdownToHTML(fullArticle.md);
   }
 
