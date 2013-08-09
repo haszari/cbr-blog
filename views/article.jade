@@ -30,17 +30,13 @@
                 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
             })();
       .span4
-        table#article-sidebar
-          tr
-            td.key Datum:
-            td.info=article.date.toISOString().split('T')[0]   
-          tr
-            td.key Tags:
-            td.info
-              ul.tags
-                - for (var i = 0; i < article.tags.length; i++)
-                  li
-                    a(href="/tag/" + article.tags[i].url,title='Alle Artikel mit Tag "' + article.tags[i].name + '"') #{article.tags[i].name}
+        #article-sidebar
+          .date=article.date.toISOString().split('T')[0]   
+          .tags
+            - for (var i = 0; i < article.tags.length; i++)
+              .tag
+                a(href="/tag/" + article.tags[i].url,title='more "' + article.tags[i].name + '" posts') #{article.tags[i].name}
+          //- I'm not really using sources, so this is not really firing
           - if (article.sources.length > 0)
             tr
               td.key Links:
@@ -49,6 +45,7 @@
                   - for (var i = 0; i < article.sources.length; i++)
                     li
                       a(href=article.sources[i].url,title=article.sources[i].name) #{article.sources[i].name}
+    //- hidden "form fields" for updating article
     .row#articlemarkdown(style="display: none;")=article.md
     .row#articleIdHex(style="display: none;")=article.idHex
     .row#articleSlug(style="display: none;")=article.slug
