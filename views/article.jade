@@ -4,16 +4,17 @@
       .alert-message.warning(style="margin-top: -52px")
         p This article is <strong>not published!</strong>
     .page-header
-      - if (auth)
-        .github.pull-right
-          a#editMode.btn(href="#") Edit
-      h1#articleTitle #{article.name} 
-      #articleTags 
-        - for (var i = 0; i < article.tags.length; i++)
-          = article.tags[i].name + " "
-      label#articlePublished
-        span Published
-        input(type="checkbox", checked=(article.published ? "checked" : undefined)) 
+      #title-row
+        - if (auth)
+          a#editMode.blockybutton.btn(href="#") Edit
+        h1#articleTitle #{article.name}
+      div
+        label#articlePublished
+          input(type="checkbox", checked=(article.published ? "checked" : undefined)) 
+          span Published
+        #articleTags 
+          - for (var i = 0; i < article.tags.length; i++)
+            = article.tags[i].name + " "
     .row#articlerow
       a(name="article-content", id="article-content")    
       #preview.span12!= article.html
@@ -31,10 +32,11 @@
             })();
       .span4
         #article-sidebar
-          .date=article.date.toISOString().split('T')[0]   
+          #articleSlug(style="display: none;")=article.slug
+          .date.blockybutton=article.date.toISOString().split('T')[0]   
           .tags
             - for (var i = 0; i < article.tags.length; i++)
-              .tag
+              .tag.blockybutton
                 a(href="/tag/" + article.tags[i].url,title='more "' + article.tags[i].name + '" posts') #{article.tags[i].name}
           //- I'm not really using sources, so this is not really firing
           - if (article.sources.length > 0)
@@ -45,7 +47,7 @@
                   - for (var i = 0; i < article.sources.length; i++)
                     li
                       a(href=article.sources[i].url,title=article.sources[i].name) #{article.sources[i].name}
+    
     //- hidden "form fields" for updating article
     .row#articlemarkdown(style="display: none;")=article.md
     .row#articleIdHex(style="display: none;")=article.idHex
-    .row#articleSlug(style="display: none;")=article.slug

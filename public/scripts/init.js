@@ -18,16 +18,16 @@ var editor = null;
 var editMode = function() {
   if ($('#articlerow').length > 0) {
     $('<div id="articleeditor" style="display: none; height: 480px;"><div class="row" id="articleeditframe" style="height: 448px; opacity: 0;"><div class="span16"><div id="edit" style="width:935px; height:450px">' + $('#articlemarkdown').html() + '</div><br style="clear:both" /></div></div><hr /></div>').insertBefore('#articlerow');
-    $('<div class="github pull-right"><a href="#" class="btn" id="composesave">Save</a>').insertBefore('h1');
+    $('<a href="#" class="blockybutton btn" id="composesave">Save</a>').insertBefore('h1');
     $('.time, .read, #editMode').remove();
 
     $('#articleTitle').attr({contentEditable: true});
     $('#articleTags').attr({contentEditable: true});
     $('#articleSlug').attr({contentEditable: true});
     
-    $('#articleTags').show();
+    $('#articleTags').show().css('display', 'inline');
     $('#articlePublished').show();
-    $('#articleSlug').show();
+    $('#articleSlug').show().css('display', 'inline');;
     
     var converter = new Showdown.converter(), text = '';
     $('#logindata').bind('show', function() { $('#uname').focus(); });
