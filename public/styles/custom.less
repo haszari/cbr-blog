@@ -1,14 +1,20 @@
 // theme stuff
 
-@menu-color: darkgreen;
-@menu-fg-color: white;
-@menu-accent-color: black;
+// I couldn't get includes working for some reason, so we'll paste the theme for now
+// (I know I know ... !)
+//@import "./themes/base.less";
+//@import "themes/green.less";
 
-@main-bg-color: #efd;
-@main-fg-color: black;
+@menu-color: #2a3a59;
+@menu-fg-color: #fff5e8;
+@menu-accent-color: #1e2d40;
+
+@main-bg-color: #fff5e8;
+@main-fg-color: #0f0b09;
 @main-heading-color: #524;
-@main-link-color: #232;
-@main-vlink-color: #343;
+@main-link-color: #22051b;
+@main-vlink-color: #301d4a;
+
 
 
 
@@ -140,6 +146,7 @@ margin-top: 7px !important;
 body {
   background-image: url(/img/squairy_light.png);
   background-color: @main-bg-color;
+  color: @main-fg-color;
   margin: 0;
   font-family: 'Lato', sans-serif;
 }
