@@ -98,9 +98,11 @@ exports.checkLogin = function(name, password, callback) {
 
 var removeDudTags = function(rawTags) {
   var cleanTags = [];
-  for (var i=0; i<rawTags.length; i++) {
-    if (rawTags[i].length > 0) {
-      cleanTags.push(rawTags[i]);
+  if (rawTags) {
+    for (var i=0; i<rawTags.length; i++) {
+      if (rawTags[i].length > 0) {
+        cleanTags.push(rawTags[i]);
+      }
     }
   }
   return cleanTags;
