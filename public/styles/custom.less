@@ -1,3 +1,17 @@
+// theme stuff
+
+@menu-color: darkgreen;
+@menu-fg-color: white;
+@menu-accent-color: black;
+
+@main-bg-color: #efd;
+@main-fg-color: black;
+@main-heading-color: #524;
+@main-link-color: #232;
+@main-vlink-color: #343;
+
+
+
 // base layout/framework stuff
 
 .hide {
@@ -125,22 +139,23 @@ margin-top: 7px !important;
 
 body {
   background-image: url(/img/squairy_light.png);
+  background-color: @main-bg-color;
   margin: 0;
   font-family: 'Lato', sans-serif;
 }
 /* base styles, and default mobile layout */
 .menu {
   background-image: url(/img/squairy_light.png);
-  background-color: #345678;
+  background-color: @menu-color;
   width: 100%;
   border-style: dotted;
   border-width: 0px;
   border-bottom-width: 1.5px;
-  border-color: lightgray;
+  border-color: @menu-accent-color;
 }
-.menu div, .menu a {
+.menu div, .menu a, .menu a:visited {
   margin: 8px;
-  color: white;
+  color: @menu-fg-color;
   display: inline-table;
 }
 .menu .logo {
@@ -159,12 +174,22 @@ body {
 .content {
   padding: 8px;
 }
+h1, h2, h3, h4, h5, h6 {
+  color: @main-heading-color;
+}
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+  color: @main-heading-color;
+}
 h1 {
   margin-top: 4px;
   margin-bottom: 4px;
 }
 a {
   text-decoration: none;
+  color: @main-link-color;
+}
+a:visited {
+  color: @main-vlink-color;
 }
 /* desktop override to put menu on the side */
 @media (min-width: 501px) {
