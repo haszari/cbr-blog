@@ -44,6 +44,7 @@ html(lang="de",xmlns="http://www.w3.org/1999/xhtml",xmlns:og="http://ogp.me/ns#"
           a(href="/") About
       .secondary
         - if (session.valid) 
+          a#buttoncompose(href="#") New
           a(href="#") Logout 
             //- placeholder, I need to implement logout!!
         - else
@@ -70,6 +71,7 @@ html(lang="de",xmlns="http://www.w3.org/1999/xhtml",xmlns:og="http://ogp.me/ns#"
                   - else
                     li
                       a#login(href="#") Login
+    //- CONTENT!!
     .content!= body
     //- special modal popups that are hidden by default
     #logindata.content.modal.hide.fade
@@ -91,6 +93,7 @@ html(lang="de",xmlns="http://www.w3.org/1999/xhtml",xmlns:og="http://ogp.me/ns#"
         input#authenticate.pull-right.btn.primary(type="submit", value="Login")
         span.pull-right#loginstatus.loader
           img(src="/loader.gif")
+    //- compose popup - this is in use but needs work
     #composemodal.content.modal.hide.fade
       .modal-header
         a.close(href="#") &times;
@@ -106,13 +109,11 @@ html(lang="de",xmlns="http://www.w3.org/1999/xhtml",xmlns:og="http://ogp.me/ns#"
               label(for="newSlug") Slug (optional)
               .input
                 input#newSlug.xlarge(type="text","readonly"="readonly")
-                br 
-                br
-                span.help-block New articles will be hidden per default.
       .modal-footer
         input#composecreate.pull-right.btn.primary(type="submit", value="Create")
         span.pull-right#composestatus.loader
-          img(src="/loader.gif")   
+          img(src="/loader.gif")
+    //- drafts popup - I'm not using this   
     #draftsmodal.content.modal.hide.fade
       .modal-header
         a.close(href="#") &times;

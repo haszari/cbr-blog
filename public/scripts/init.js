@@ -25,9 +25,9 @@ var editMode = function() {
     $('#articleTags').attr({contentEditable: true});
     $('#articleSlug').attr({contentEditable: true});
     
-    $('#articleTags').show().css('display', 'inline');
+    $('#articleTags').show().css('display', 'inline-block');
     $('#articlePublished').show();
-    $('#articleSlug').show().css('display', 'inline');;
+    $('#articleSlug').show().css('display', 'inline-block');;
     
     var converter = new Showdown.converter(), text = '';
     $('#logindata').bind('show', function() { $('#uname').focus(); });
