@@ -1,4 +1,10 @@
 var mdb = require('./mongoblog');
+// currently using our own custom copy of feed
+// (forked from http://projets.jpmonette.net/en/feed)
+// have engaged author of feed in order to fix entries for loop bug
+// will switch to npm feed if that problem is resolved
+// we depend on xml directly for this (see package.json)
+var Feed = require('./feed'); 
 
 /**
  * Load config JSON file
@@ -104,8 +110,34 @@ srv.post('/api/auth', function(req, res) {
  **/
 srv.all('/feed', function(req, res) {
   var articles = mdb.getArticles(0, false, function(articles) {
-    console.log(articles);
-    return res.render('feed', mdb.jadeData({url: mdb.getDefault('url') + req.url, layout: false, list: articles}, req));    
+    // set feed metadata
+    var feed = new Feed({
+        title:        config.siteName,
+        description:  config.description,
+        link:         mdb.getDefault('url') + '/',
+        image:        mdb.getDefault('url') + '/img/CartoonMixer2011-150px.png',
+        copyright:    'Copyright © 2013 ' + config.author + '. All rights reserved',
+     
+        author: {
+            name:     config.author,
+            email:    config.authorEmail,
+            link:     mdb.getDefault('url')
+        }
+    });
+
+    // add feed articles
+    for(var i=0; i<articles.length; i++) {
+      //console.log(i, articles[i].date.getUTCFullYear(), articles[i].name);
+      feed.item({
+          title:          articles[i].name,
+          link:           mdb.getDefault('url') + articles[i].url,
+          description:    articles[i].html,
+          date:           articles[i].date
+      });
+    }
+
+    //res.send(feed.render('rss-2.0')); // seems that rss doesn't validate
+    res.send(feed.render('atom-1.0')); // atom is probably more fashionable anyway
   }); // page 0, only published posts
 });
 
