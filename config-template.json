@@ -4,7 +4,5 @@
   "mongoConnectionString": "mongodb://127.0.0.1:27017/test",
   "admin": {"username": "user", "password": "secret"},
   "author": "User",
-  "disqus": "",
-  "paths": {
-    "articles": "markdown"}
+  "disqus": ""
 }
