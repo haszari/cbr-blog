@@ -135,7 +135,7 @@ exports.processMongoArticle = function(mongoItem) {
     for (var i=0; i<mongoItem.tags.length; i++) {
       tags.push({ 
         name: mongoItem.tags[i],
-        url: mongoItem.tags[i], // ahem, urlify??
+        url: "/tag/" + mongoItem.tags[i], // ahem, urlify??
       });
     }
   }
@@ -177,7 +177,7 @@ var checkSlug = function(idHex, slug, collection) {
   });
 };
 
-/** TODO
+/**
  * Update article in db
  * @param object data
  **/
@@ -219,7 +219,7 @@ exports.updateArticle = function(data, callback) {
   }
 };
 
-/** TODO
+/**
  * Create new article
  **/
 exports.createNewArticle = function(name, slug, callback) {
@@ -283,8 +283,6 @@ var toSlug = function(str) {
     str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i)); }
 
   return str.replace(/[^a-z0-9 -]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-');
-
-  // TODO uniquify slug - if exists in db add a number
 
 }; exports.toSlug = toSlug;
 
@@ -358,7 +356,7 @@ exports.getArticleById = function(idHex, includeUnpublished, callback) {
   }
 };
 
-/** TODO
+/**
  * Get articles by tag (async)
  * @param string $tap
  * @return array via callback
@@ -381,7 +379,7 @@ exports.getArticlesByTag = function(tag, includeUnpublished, callback) {
   });
 };
 
-/** TODO
+/**
  * Get drafts
  * @return array
  **/
@@ -432,18 +430,32 @@ exports.markdownToHTML = function(data) {
   return data;
 };
 
-/** TODO
+/**
  * Get Tag cloud
- * @param integer max maximum font size
- * @param integer min minimum font size 
- * @return object
+ * @return object (via callback)
  **/
-exports.getTagCloud = function(max, min) {
-  var data = {}, numbers = [];
+exports.getTagCloud = function(callback) {
+  var tagCloud = []; // array of { name: 'banana', size: 0..1 } 
 
-  var sizes = {};
+  mongodb.connect(app.mongoConnectionString, function(err, db) {
+    if(err) { return console.dir(err); }
 
-  return sizes;
+    var collection = db.collection('cbr_content');
+  
+    collection.distinct('tags', function(err, tagList) {
+      if(err) { return console.dir(err); }
+
+      for (var i=0; i<tagList.length; i++) {
+        tagCloud.push({
+          name: tagList[i],
+          url: "/tag/" + tagList[i],
+          size: 1 // TODO!!
+        });
+      }
+
+      callback(tagCloud);
+    });
+  });
 };
 
 /*

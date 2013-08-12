@@ -161,6 +161,20 @@ srv.all('/posts/:pageNumber?', function(req, res) {
 });
 
 /**
+ * Display tag list
+ * @example http://semu.mp/tag/bananas
+ **/
+srv.all('/tags', function(req, res) {
+  var hasSession = req.session.valid;
+
+  mdb.getTagCloud(function(tags) {
+    mdb.setMeta('url', mdb.getDefault('url') + req.url);
+    
+    res.render('tags', mdb.jadeData({tagCloud: tags}, req));
+  });
+});
+
+/**
  * Display/update single blog post by slug
  * @example http://semu.mp/hello-world
  **/
@@ -237,7 +251,7 @@ srv.all('/postid/:postId', function(req, res) {
   }
 });
 
-/** todo
+/**
  * Display articles by tag
  * @example http://semu.mp/tag/bananas
  **/
@@ -253,9 +267,10 @@ srv.all('/tag/:tagname', function(req, res) {
     mdb.setMeta('headline', 'Tagged with ' + tagname);  
     mdb.setMeta('current', 'posts');
     
-    res.render('posts', mdb.jadeData({tags: mdb.getTagCloud(30, 14), list: articles}, req));
+    res.render('posts', mdb.jadeData({list: articles}, req));
   });
 });
+
 
 /**
  * Display about

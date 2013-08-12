@@ -37,7 +37,7 @@
           .tags
             - for (var i = 0; i < article.tags.length; i++)
               .tag.blockybutton
-                a(href="/tag/" + article.tags[i].url,title='more "' + article.tags[i].name + '" posts') #{article.tags[i].name}
+                a(href=article.tags[i].url,title='posts about "' + article.tags[i].name + '"') #{article.tags[i].name}
           //- I'm not really using sources, so this is not really firing
           - if (article.sources.length > 0)
             tr
