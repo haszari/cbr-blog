@@ -1,0 +1,6 @@
+.container
+  #article-sidebar
+    .tags
+      - for (var i = 0; i < tagCloud.length; i++)
+        .tag.blockybutton
+          a(href=tagCloud[i].url,title='posts about "' + tagCloud[i].name + '"') #{tagCloud[i].name}
