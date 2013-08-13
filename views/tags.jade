@@ -3,4 +3,4 @@
     .tags
       - for (var i = 0; i < tagCloud.length; i++)
         .tag.blockybutton
-          a(href=tagCloud[i].url,title='posts about "' + tagCloud[i].name + '"') #{tagCloud[i].name}
+          a(href=tagCloud[i].url,title='posts about "' + tagCloud[i].name + '"', style="font-size: " + tagCloud[i].size + "px; font-weight: bold;") #{tagCloud[i].name}

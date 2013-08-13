@@ -442,15 +442,33 @@ exports.getTagCloud = function(callback) {
 
     var collection = db.collection('cbr_content');
   
-    collection.distinct('tags', function(err, tagList) {
+    var smallFont = 10, fontRange = 50;
+
+    //collection.distinct('tags', function(err, tagList) {
+    collection.aggregate(
+      { $project: { tags: 1 } }, 
+      { $unwind: "$tags" }, 
+      { $group: { _id: "$tags", count: { $sum: 1 } } },
+      { $sort: { count: -1 } },
+      function(err, tagList) {
+   
       if(err) { return console.dir(err); }
 
       for (var i=0; i<tagList.length; i++) {
-        tagCloud.push({
-          name: tagList[i],
-          url: "/tag/" + tagList[i],
-          size: 1 // TODO!!
-        });
+        // (hiding tags that are too big to be cool for dev.. if this is needed in production, add an "excludefromtags" config option)
+        // if (
+        //   tagList[i]._id.indexOf('http') == -1 &&
+        //   tagList[i]._id.indexOf('haszaristwocents') == -1 &&
+        //   tagList[i]._id.indexOf('blogger') == -1
+        //   ) {
+          tagCloud.push({
+            name: tagList[i]._id,
+            url: "/tag/" + tagList[i]._id,
+            size: fontRange * (tagList[i].count / tagList[0].count) + smallFont
+            // likewise if we exclude tags, we need to adjust the max .. can do all this in the db query
+            //size: fontRange * (tagList[i].count / 42) + smallFont
+          });
+        //}
       }
 
       callback(tagCloud);
