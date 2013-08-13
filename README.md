@@ -4,7 +4,7 @@ I have forked node-blog to get it working with posts stored in MongoDB and vario
 
 Also this project combines both the blog engine library and the node front-end into a single module for ease of use.
 
-(Get in touch)[drongo@cartoonbeats.com] if you have any issues using this or have any questions.
+[Get in touch](drongo@cartoonbeats.com) if you have any issues using this or have any questions.
 
 Credit to the original author. Excerpt of original readme follows...
 
