@@ -6,6 +6,6 @@
   "mongoConnectionString": "mongodb://127.0.0.1:27017/test",
   "admin": {"username": "user", "password": "secret"},
   "author": "Example User",
-  "author": "example@example.org",
+  "authorEmail": "example@example.org",
   "disqus": ""
 }
