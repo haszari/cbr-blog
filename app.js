@@ -1,10 +1,5 @@
 var mdb = require('./mongoblog');
-// currently using our own custom copy of feed
-// (forked from http://projets.jpmonette.net/en/feed)
-// have engaged author of feed in order to fix entries for loop bug
-// will switch to npm feed if that problem is resolved
-// we depend on xml directly for this (see package.json)
-var Feed = require('./feed'); 
+var Feed = require('feed'); 
 
 /**
  * Load config JSON file
@@ -108,7 +103,9 @@ srv.post('/api/auth', function(req, res) {
  * Export RSS Feed
  * @example http://semu.mp/feed 
  **/
-srv.all('/feed', function(req, res) {
+srv.all('/feed', function(req, response) {
+  var res = response;
+
   var articles = mdb.getArticles(0, false, function(articles) {
     // set feed metadata
     var feed = new Feed({
@@ -127,7 +124,7 @@ srv.all('/feed', function(req, res) {
 
     // add feed articles
     for(var i=0; i<articles.length; i++) {
-      //console.log(i, articles[i].date.getUTCFullYear(), articles[i].name);
+      console.log(i, articles[i].date.getUTCFullYear(), articles[i].name);
       feed.item({
           title:          articles[i].name,
           link:           mdb.getDefault('url') + articles[i].url,
@@ -136,9 +133,10 @@ srv.all('/feed', function(req, res) {
       });
     }
 
-    //res.send(feed.render('rss-2.0')); // seems that rss doesn't validate
-    res.send(feed.render('atom-1.0')); // atom is probably more fashionable anyway
-  }); // page 0, only published posts
+    var feedText = feed.render('atom-1.0');
+    //res.set('Content-Type', 'text/xml'); // I would like to do this, but request never completes ..
+    res.send(feedText);
+  }); 
 });
 
 /**

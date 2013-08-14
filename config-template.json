@@ -1,8 +1,11 @@
 {
   "host": "10.1.1.1",
   "port": 8556,
+  "siteName": "Example Site",
+  "description": "An example to others.",
   "mongoConnectionString": "mongodb://127.0.0.1:27017/test",
   "admin": {"username": "user", "password": "secret"},
-  "author": "User",
+  "author": "Example User",
+  "author": "example@example.org",
   "disqus": ""
 }
