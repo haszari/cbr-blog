@@ -19,12 +19,15 @@ app = {
   'meta':         {}, 
   'default':      {}, 
   'mapping':      {}, 
-  'mongoConnectionString': "mongodb://127.0.0.1:27017/test",
+  'mongoConnectionString': "mongodb://127.0.0.1:27017/",
   'md':           require('markdown').markdown, 
   'admin':        [], 
   'articlesPerPage': 10
 }, 
 exports = module.exports = app;
+
+var mongojs = require('mongojs');
+var db = null;
 
 /** 
  * Set general meta information
@@ -71,7 +74,10 @@ exports.addLogin = function(user) { app.admin.push(user); };
  * Set database connection details
  * @param string
  **/
- exports.setMongoConnectionString = function(conn) { app.mongoConnectionString = conn; };
+ exports.setMongoConnectionString = function(conn) { 
+  app.mongoConnectionString = conn;
+  db = mongojs(app.mongoConnectionString);
+};
 
 /** 
  * Get current session
@@ -200,9 +206,9 @@ exports.updateArticle = function(data, callback) {
 
   // update
   if (mongoId) {
-    mongodb.connect(app.mongoConnectionString, function(err, db) {
-      if(err) { return console.dir(err); }
-
+    // mongodb.connect(app.mongoConnectionString, function(err, db) {
+    //   if(err) { return console.dir(err); }
+    {
       console.log('mongonected, saving ', mongoRecord);
 
       var collection = db.collection('cbr_content');
@@ -215,7 +221,8 @@ exports.updateArticle = function(data, callback) {
 
         callback(articleUrl);
       });
-    });
+    //});
+    }
   }
 };
 
@@ -234,9 +241,9 @@ exports.createNewArticle = function(name, slug, callback) {
   };
 
   // create
-  mongodb.connect(app.mongoConnectionString, function(err, db) {
-    if(err) { return console.dir(err); }
-
+  // mongodb.connect(app.mongoConnectionString, function(err, db) {
+  //   if(err) { return console.dir(err); }
+  {
     console.log('mongonected, creating ', mongoRecord);
 
     var collection = db.collection('cbr_content');
@@ -250,7 +257,8 @@ exports.createNewArticle = function(name, slug, callback) {
 
       callback(articleUrl);
     });
-  });
+  //});
+  }
 
 };
 
@@ -297,15 +305,16 @@ var getArticlesFromMongo = function(options, callback) {
   var items = [];
   var err = '';
 
-  mongodb.connect(app.mongoConnectionString, function(err, db) {
-    if(err) { return console.dir(err); callback(err, [])}
-
+  // mongodb.connect(app.mongoConnectionString, function(err, db) {
+  //   if(err) { return console.dir(err); callback(err, [])}
+  {
     var collection = db.collection('cbr_content');
 
     collection.find(query, mongoOptions).sort(sort).toArray(function(err, items) {
       callback(items, err);
     });
-  });
+  //});
+  }
 };
 
 /**  
@@ -437,9 +446,9 @@ exports.markdownToHTML = function(data) {
 exports.getTagCloud = function(callback) {
   var tagCloud = []; // array of { name: 'banana', size: 0..1 } 
 
-  mongodb.connect(app.mongoConnectionString, function(err, db) {
-    if(err) { return console.dir(err); }
-
+  // mongodb.connect(app.mongoConnectionString, function(err, db) {
+  //   if(err) { return console.dir(err); }
+  {
     var collection = db.collection('cbr_content');
   
     var smallFont = 10, fontRange = 50;
@@ -473,7 +482,8 @@ exports.getTagCloud = function(callback) {
 
       callback(tagCloud);
     });
-  });
+  //});
+  }
 };
 
 /*
