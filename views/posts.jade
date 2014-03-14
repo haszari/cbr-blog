@@ -1,10 +1,12 @@
-#tag-cloud.container
-  section.cloud
-    ul
-      - for (var i in tags)
-        li
-          span(style="font-size:"+tags[i]+"px;")
-            a(href="/tag/" + i + ".html")=i
+//- tag cloud not being used at the moment, a relic
+  #tag-cloud.container
+    section.cloud
+      ul
+        - for (var i in tags)
+          li
+            span(style="font-size:"+tags[i]+"px;")
+              a(href="/tag/" + i + ".html")=i
+              
 #article-list.container
   section#article
     .page-header
