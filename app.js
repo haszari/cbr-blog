@@ -329,4 +329,4 @@ function trim(str) { return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '').repl
  *
  **/
 var router = kickstart.listen();
-console.log("Listening on http://%s:%d; (check that hostname is correct!)", kickstart.conf().name, router.address().port);
+console.log("Listening on http://%s:%d; (check that hostname is correct!)", kickstart.conf().name, kickstart.conf().port);
