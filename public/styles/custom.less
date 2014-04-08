@@ -1,57 +1,166 @@
-// theme stuff
+/* 
+fonts I am considering
+https://www.google.com/fonts#UsePlace:use/Collection:Noto+Sans:400,700,400italic,700italic|Domine:400,700|Inder|Gilda+Display|Della+Respira|Roboto:400,100,100italic,300italic,300,400italic,500,500italic,700,700italic,900,900italic|Maven+Pro:400,500,900,700|Lusitana:400,700|Merriweather:400,900italic,900,700italic,700,400italic,300italic,300|Karla:400,400italic,700,700italic|Bangers 
+*/
 
-// I couldn't get includes working for some reason, so we'll paste the theme for now
-// (I know I know ... !)
-//@import "./themes/base.less";
-//@import "themes/green.less";
+/*
+TODO:
+- go live
+- responsive/mobile
+*/ 
 
-@menu-color: #2a3a59;
-@menu-fg-color: #f2f5ea;
-@menu-accent-color: #1e2d40;
+@import url(http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic|Domine:400,700|Inder|Gilda+Display|Della+Respira|Roboto:400,100,100italic,300italic,300,400italic,500,500italic,700,700italic,900,900italic|Maven+Pro:400,500,900,700|Lusitana:400,700|Merriweather:400,900italic,900,700italic,700,400italic,300italic,300|Karla:400,400italic,700,700italic|Bangers);
 
-@main-bg-color: #f2f5ea;
-@main-fg-color: #0f0b09;
-@main-heading-color: #524;
-@main-link-color: #408457;
-@main-vlink-color: #659105;
+/** GLOBAL **/
 
+/* standard font */
+html {
+   font-family: 'Roboto', sans-serif;
+   font-weight: 400;
+   font-size: 15px;
+}
 
+/* body takes up full browser window so stripes are wide */
+body {
+   margin: 0;
+}
 
-
-// base layout/framework stuff
-
+/* hide .hide (i.e. login form etc) */
 .hide {
-  display: none;
+   display: none;
 }
 
-.pull-right {
-  float: right;
+/* colours */
+.menu.stripe, .menu a { 
+   background-color: black;
+   color: white;
+}
+a {
+   color: #300;
 }
 
-// (existing) blog specific stuff
+/** LAYOUT **/
 
-.cLeft { text-align: left !important; }
-#article-list h3 { padding: 0; margin: 0; line-height: 34px;}
-#article-list .datefield { line-height: 35px }
-#header {
-height: 18px;
-padding: 20px 0;
-text-align: right;
-}
-#header ul {
-list-style: none;
-display: block;
-height: 18px;
-margin: 0;
-padding: 0;
-}
-#header ul li {
-display: inline;
-float: none;
-vertical-align: baseline;
-padding: 0 14px;
+.stripe {
+   width: 100%;
+   margin: 0;
+   padding: 0;
 }
 
+.stripe-column {
+   max-width: 800px;
+   width: 100%;
+   margin: 0 auto;
+   padding: 0;
+}
+
+/** MENU **/ 
+
+/* menu font */
+.menu {
+   font-family: 'Noto Sans', sans-serif;
+   font-weight: 700;
+   font-size: 40px;
+   text-transform: uppercase;
+   font-style: italic;
+}
+
+/* no underline for menu links */
+.menu a {
+   text-decoration: none;
+}
+
+/* menu things are not full width */
+.menu .stripe-column * {
+   display: inline-block;
+}
+
+.menu .primary a {
+   padding-right: 40px;
+}
+.menu .secondary a {
+   padding-left: 40px;
+}
+/* secondary on right */
+.menu .secondary {
+   float: right;
+}
+
+/** POSTS **/
+
+/* post images */ 
+.stripe.content img {
+   width: 40%;
+}
+.stripe.content img:nth-of-type(odd) {
+   float: right;
+   padding: 12px;
+   padding-right: 0;
+   padding-top: 0;
+}
+.stripe.content img:nth-of-type(even) {
+   float: left;
+   padding: 12px;
+   padding-left: 0;
+   padding-top: 0;
+}
+
+/* normalise margin-before etc crap from webkit */
+.stripe.content h1 {
+   margin: 0;
+   padding-bottom: 8px;
+}
+
+/* magic trick for allowing div to grow for floated stuff (e.g. images) */
+.stripe.content {
+   overflow: hidden;
+}
+
+.stripe.content {
+   padding-top: 12px;
+   padding-bottom: 20px;
+   color: white;
+}
+.stripe.content a {
+   color: white;
+}
+
+.stripe.content:nth-child(3n+0) {
+   background-color: #AE3C02;
+}
+.stripe.content:nth-child(3n+1) {
+   background-color: #245;
+}
+.stripe.content:nth-child(3n+2) {
+   background-color: #026101;
+}
+
+/* hide edity stuff for now */
+#articlePublished, #articleTags {
+   display: none;
+}
+
+/** POST TAGS **/
+
+.tags {
+   text-align: center;
+   line-height: 200%
+}
+
+.tag {
+   display: inline-block;
+   margin: 2px;
+}
+.tag a {
+   background-color: black;
+   color: white;
+   border-radius: 2px;
+   text-decoration: none;
+   padding: 2px 8px;
+}
+
+
+//---- MISC LEFTOVER STUFF FROM BEFORE! 
 #tag-cloud span {
   padding: 4px 12px;
   max-height: 38px;  
@@ -89,7 +198,8 @@ padding: 0 14px;
 .github .primary {
   margin-right: 8px;
 }
-/** Disqus **/
+
+// Disqus
 #dsq-subscribe, .dsq-trackback-url, #dsq-account-dropdown, .dsq-reply h3, .dsq-comment-actions li:first-child { display: none; }
 .dsq-comment-message { padding-left: 12px; }
 #dsq-sort-select { 
@@ -97,6 +207,7 @@ font-size: 12px !important;
 margin-top: 7px !important;
 }
 
+// node blog forms
 #loginstatus, #composestatus {
   margin-right: 8px;
   font-weight: bold;
@@ -139,149 +250,6 @@ margin-top: 7px !important;
 
 #articlePublished {
   display:none;
-}
-
-// drongo template stuff
-
-body {
-  background-image: url(/img/squairy_light.png);
-  background-color: @main-bg-color;
-  color: @main-fg-color;
-  margin: 0;
-  font-family: 'Helvetica', 'Arial', sans-serif;
-}
-/* base styles, and default mobile layout */
-.menu {
-  font-family: 'Lato', sans-serif;
-  background-image: url(/img/squairy_light.png);
-  background-color: @menu-color;
-  width: 100%;
-  border-style: dotted;
-  border-width: 0px;
-  border-bottom-width: 1.5px;
-  border-color: @menu-accent-color;
-}
-.menu div, .menu a, .menu a:visited {
-  margin: 8px;
-  color: @menu-fg-color;
-  display: inline-table;
-}
-.menu .logo {
-  height: 35px;
-  width: 32px;     
-  background-image: url(/img/CartoonMixer2011-150px.png);
-  background-repeat: no-repeat;      
-  background-size: contain;
-  background-position: center center;
-  float: left;
-}
-.menu .secondary {
-  float: right;
-  position: static;
-}
-.content {
-  padding: 8px;
-}
-h1, h2, h3, h4, h5, h6 {
-  color: @main-heading-color;
-}
-h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
-  color: @main-heading-color;
-}
-h1 {
-  margin-top: 4px;
-  margin-bottom: 4px;
-}
-a {
-  text-decoration: none;
-  color: @main-link-color;
-}
-a:visited {
-  color: @main-vlink-color;
-}
-/* desktop override to put menu on the side */
-@media (min-width: 501px) {
-  .menu {
-     position: fixed;
-     width: 90px;
-     height: 100%;
-     text-align: right;
-     border-width: 0px;
-     border-right-width: 1px;
-  }
-  .menu div {
-     display: block;
-  }
-  .menu .logo {
-     height: 70px;
-     width: 75px;
-  }
-  .content {
-     margin-left: 90px;
-  }
-  .menu .secondary {
-     position: absolute;
-     bottom: 0;
-     right: 0;
-  }
-}
-@media (max-width: 500px) {
-  img {
-     max-width: 100%;
-  }
-}
-
-.blockybutton {
-  display: inline-block;
-  border-radius: 3px;
-  border-width: 1px;
-  padding: 3px;
-  margin-right: 10px;
-  text-transform: uppercase;
-}
-
-#title-row h1 {
-  display: inline-block;
-}
-
-#articleTitle {
-  width: auto;
-  min-width: 400px;
-}
-
-.btn {
-  background-color: rgba(20, 44, 31, 0.6);
-  border-color: rgba(12, 14, 21, 0.4);
-  color: rgb(200, 205, 240);
-  position: relative;
-  bottom: 2px;
-//  width: 30px;
-  text-align: center;
-}
-
-
-#article-sidebar div {
-  display: inline-block;
-  margin-right: 8px;
-  font-size: 70%;
-  font-weight: 100;
-}
-#article-sidebar #articleSlug {
-  font-size: 100%;
-  padding-left: 6px;
-  padding-right: 6px;
-}
-.date {
-  background-color: rgba(60, 44, 31, 0.6);
-  border-color: rgba(12, 64, 21, 0.4);
-  color: rgb(240, 230, 220);
-}
-.tag {
-  background-color: rgba(20, 44, 31, 0.6);
-  border-color: rgba(12, 14, 21, 0.4);
-}
-#article-sidebar .tag a {
-  color: rgb(220, 210, 240);
 }
 
 [contenteditable] {

@@ -7,8 +7,8 @@
             span(style="font-size:"+tags[i]+"px;")
               a(href="/tag/" + i + ".html")=i
               
-#article-list.container
-  section#article
+.container.stripe#article-list
+  section.stripe-column#article
     .page-header
       h1 #{meta.headline} 
         small #{list.length} available

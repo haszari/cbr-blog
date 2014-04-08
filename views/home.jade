@@ -3,17 +3,17 @@
 //- in future will be full articles (or excerpts)
 
 
-#article-list.container.home
-  section#article
-    .page-header
-      h1 #{meta.site}
+.containerhome#article-list
+  section.stripe-column#article
   - for (var i = 0; i < list.length; i++) 
-    .row
-      .span2.datefield
-        code=list[i].datestring
-      .span14.cLeft
-        h3
-          a(href=list[i].url) #{list[i].name} 
-    .row
-      .offset2.span14.cLeft
-        #content!=list[i].html         
+    .stripe.content
+      .stripe-column
+        .row
+          .span2.datefield
+            code=list[i].datestring
+          .span14.cLeft
+            h3
+              a(href=list[i].url) #{list[i].name} 
+        .row
+          .offset2.span14.cLeft
+            #content!=list[i].html         

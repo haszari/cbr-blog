@@ -37,42 +37,43 @@ html(lang="en",xmlns="http://www.w3.org/1999/xhtml",xmlns:og="http://ogp.me/ns#"
       script
         var auth = false, redirectTo = null, maxID = null;
   body(onload="prettyPrint()")
-    .menu
-      a(href="/").logo &nbsp;
-      .primary
-        a(href="/") Home
-        a(href="/tags") Tags
-        //- these are coming soon - I need to implement a tag cloud ish page and other stuff like about as needed
-          a(href="/") About
-      .secondary
-        - if (session.valid) 
-          a#buttoncompose(href="#") New
-          a(href="#") Logout 
-            //- placeholder, I need to implement logout!!
-        - else
-          a#login(href="#") Login
-      //- section#navigation //- note this is a block comment .. nestedness, whitespace
-        .topbar-wrapper(style="z-index: 5;")
-          .topbar(data-dropdown="dropdown")
-            .topbar-inner
-              .container
-                ul.nav
-                  li(class=(meta.current == 'home' ? 'active' : ''))
-                    a(href="/") Home
-                  li(class=(meta.current == 'tags' ? 'active' : ''))
-                    a(href="/posts") Tags
-                ul.nav.secondary-nav
-                  - if (session.valid) 
-                    li#adminmenu.dropdown
-                      a.dropdown-toggle(href="#3") Administration
-                      ul.dropdown-menu
-                        li
-                          a#buttoncompose(href="#") New…
-                        //- li
-                        //-  a#buttondrafts(href="#") Show Drafts…
-                  - else
-                    li
-                      a#login(href="#") Login
+    .stripe.menu
+      .stripe-column
+        a(href="/").logo.hide &nbsp;
+        .primary
+          a(href="/") Home
+          a(href="/tags") Tags
+          //- these are coming soon - I need to implement a tag cloud ish page and other stuff like about as needed
+            a(href="/") About
+        .secondary
+          - if (session.valid) 
+            a#buttoncompose(href="#") New
+            a(href="#") Logout 
+              //- placeholder, I need to implement logout!!
+          - else
+            a#login(href="#") Login
+        //- section#navigation //- note this is a block comment .. nestedness, whitespace
+          .topbar-wrapper(style="z-index: 5;")
+            .topbar(data-dropdown="dropdown")
+              .topbar-inner
+                .container
+                  ul.nav
+                    li(class=(meta.current == 'home' ? 'active' : ''))
+                      a(href="/") Home
+                    li(class=(meta.current == 'tags' ? 'active' : ''))
+                      a(href="/posts") Tags
+                  ul.nav.secondary-nav
+                    - if (session.valid) 
+                      li#adminmenu.dropdown
+                        a.dropdown-toggle(href="#3") Administration
+                        ul.dropdown-menu
+                          li
+                            a#buttoncompose(href="#") New…
+                          //- li
+                          //-  a#buttondrafts(href="#") Show Drafts…
+                    - else
+                      li
+                        a#login(href="#") Login
     //- CONTENT!!
     .content!= body
     //- special modal popups that are hidden by default
