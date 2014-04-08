@@ -262,7 +262,7 @@ srv.all('/tag/:tagname', function(req, res) {
   mdb.getArticlesByTag(tagname, includeUnpublished, function(articles) {
     mdb.setMeta('url', mdb.getDefault('url') + req.url);
     //mdb.setMeta('title', 'Tag: ' + tagname);
-    mdb.setMeta('headline', 'Tagged with ' + tagname);  
+    mdb.setMeta('headline', tagname);  
     mdb.setMeta('current', 'posts');
     
     res.render('posts', mdb.jadeData({list: articles}, req));

@@ -1,3 +1,5 @@
+//- layout for a "tag page", i.e. all posts for a given tag
+
 //- tag cloud not being used at the moment, a relic
   #tag-cloud.container
     section.cloud
@@ -10,15 +12,17 @@
 .container.stripe#article-list
   section.stripe-column#article
     .page-header
-      h1 #{meta.headline} 
-        small #{list.length} available
+      .tag 
+        h1 #{meta.headline} 
   - for (var i = 0; i < list.length; i++) 
-    .row
-      .span2.datefield
-        code=list[i].datestring
-      .span14.cLeft
-        h3.headline
-          a(href=list[i].url,title=list[i].name) #{list[i].name} 
-    .row
-      .offset2.span14.cLeft
-        #content!=list[i].excerpt          
+    .container.stripe
+      .stripe-column
+        .row
+          .span2.datefield
+            code=list[i].datestring
+          .span14.cLeft
+            h3.headline
+              a(href=list[i].url,title=list[i].name) #{list[i].name} 
+        .row
+          .offset2.span14.cLeft
+            #content!=list[i].excerpt          
