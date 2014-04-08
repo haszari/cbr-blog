@@ -9,13 +9,13 @@
             span(style="font-size:"+tags[i]+"px;")
               a(href="/tag/" + i + ".html")=i
               
-.container.stripe#article-list
+.container.content.stripe#article-list
   section.stripe-column#article
     .page-header
       .tag 
         h1 #{meta.headline} 
   - for (var i = 0; i < list.length; i++) 
-    .container.stripe
+    .container.content.stripe
       .stripe-column
         .row
           .span2.datefield
