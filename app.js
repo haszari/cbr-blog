@@ -148,13 +148,24 @@ srv.all('/posts/:pageNumber?', function(req, res) {
   var hasSession = req.session.valid;
   var includeUnpublished = hasSession;
 
+  pageNumber = parseInt(pageNumber, 10);
+  pageNumber = pageNumber < 0 ? 0 : pageNumber;
+
   mdb.setMeta('url', mdb.getDefault('url') + req.url);
   //mdb.setMeta('title', 'Articles');
-  mdb.setMeta('headline', 'Recent Articles');
+  mdb.setMeta('headline', 'page ' + pageNumber);
   mdb.setMeta('current', 'posts');  
 
   mdb.getArticles(pageNumber, includeUnpublished, function(articles) {
-    res.render('posts', mdb.jadeData({list: articles}, req));
+    var jadeData = {
+      list: articles
+    };
+    if (pageNumber >= 1) {
+      jadeData.prevPageUrl = '/posts/' + (pageNumber-1);
+    }
+    jadeData.nextPageUrl = '/posts/' + (pageNumber+1);
+
+    res.render('posts', mdb.jadeData(jadeData, req));
   });
 });
 
@@ -184,7 +195,6 @@ srv.all('/:articleSlug', function(req, res) {
 
   if (updateData && hasSession) {
     mdb.updateArticle(updateData, function(articleUrl) {
-      console.log('article updated, we called back', articleUrl);
       res.send(articleUrl);
       return;    
     }); 
@@ -253,6 +263,7 @@ srv.all('/postid/:postId', function(req, res) {
  * Display articles by tag
  * @example http://semu.mp/tag/bananas
  **/
+// TODO: paging for tags 
 srv.all('/tag/:tagname', function(req, res) {
   var tagname = req.params.tagname;
   var hasSession = req.session.valid;
@@ -293,9 +304,11 @@ srv.all('/', function(req, res) {
 	//mdb.setMeta('title', 'Home, node-blog');
   mdb.setMeta('current', 'home');
   
-  var page = 0;
-  mdb.getArticles(0, includeUnpublished, function(articles) {
-    return res.render('home', mdb.jadeData({list:articles}, req));
+  var pageNumber = 0;
+  mdb.getArticles(pageNumber, includeUnpublished, function(articles) {
+    var jadeData = { list: articles };
+    jadeData.nextPageUrl = '/posts/' + (pageNumber+1);
+    return res.render('home', mdb.jadeData(jadeData, req));
   });
 });
 

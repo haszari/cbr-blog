@@ -1,17 +1,20 @@
 //- layout for a "tag page", i.e. all posts for a given tag
+//- also the layout for page N of all posts
 
 include short-article
+include navigation
 
 //- tag at top of page 
-.container.content.stripe#article-list
-  section.stripe-column#article
+.container.content.stripe
+  section.stripe-column
     .page-header
       .tag 
         h1 #{meta.headline} 
 
 //- list of articles so tagged
 .container#article-list
-  section.stripe-column#article
+  section#article
   - for (var i = 0; i < list.length; i++) 
     +shortArticle(list[i].name, list[i].url, list[i].html, list[i].datestring, list[i].tags)
-    
+
++navigation(prevPageUrl, nextPageUrl)

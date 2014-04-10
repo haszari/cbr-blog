@@ -1,0 +1,11 @@
+//- footer with prev/next page links
+
+mixin navigation(prevPageUrl, nextPageUrl)
+  .container.content.stripe
+    section.stripe-column
+      .page-navigation
+        - if (prevPageUrl)
+          a.prev-page(href=prevPageUrl) new stuff
+        - if (nextPageUrl)
+          a.next-page(href=nextPageUrl) old stuff
+

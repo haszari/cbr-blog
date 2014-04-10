@@ -22,7 +22,7 @@ app = {
   'mongoConnectionString': "mongodb://127.0.0.1:27017/",
   'md':           require('markdown').markdown, 
   'admin':        [], 
-  'articlesPerPage': 10
+  'articlesPerPage': 11
 }, 
 exports = module.exports = app;
 
@@ -209,8 +209,6 @@ exports.updateArticle = function(data, callback) {
     // mongodb.connect(app.mongoConnectionString, function(err, db) {
     //   if(err) { return console.dir(err); }
     {
-      console.log('mongonected, saving ', mongoRecord);
-
       var collection = db.collection('cbr_content');
       collection.update(mongoId, { $set: mongoRecord }, function(err) {
         checkSlug(data.idHex, data.slug, collection);
@@ -244,7 +242,6 @@ exports.createNewArticle = function(name, slug, callback) {
   // mongodb.connect(app.mongoConnectionString, function(err, db) {
   //   if(err) { return console.dir(err); }
   {
-    console.log('mongonected, creating ', mongoRecord);
 
     var collection = db.collection('cbr_content');
     collection.insert(mongoRecord, function(err, docs) {
@@ -407,6 +404,9 @@ exports.getArticles = function(pageNumber, includeUnpublished, callback) {
   var articles = [];
   var err = '';
   var blogEngine = this;
+
+  pageNumber = parseInt(pageNumber, 10);
+  pageNumber = pageNumber < 0 ? 0 : pageNumber;
 
   var options = { 
     includeDrafts: includeUnpublished,
