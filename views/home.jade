@@ -2,18 +2,9 @@
 //- currently a list of articles, lacking excerpts
 //- in future will be full articles (or excerpts)
 
+include short-article
 
 .containerhome#article-list
   section.stripe-column#article
   - for (var i = 0; i < list.length; i++) 
-    .stripe.content
-      .stripe-column
-        .row
-          .span2.datefield
-            code=list[i].datestring
-          .span14.cLeft
-            h3
-              a(href=list[i].url) #{list[i].name} 
-        .row
-          .offset2.span14.cLeft
-            #content!=list[i].html         
+    +shortArticle(list[i].name, list[i].url, list[i].html, list[i].datestring, list[i].tags)

@@ -1,0 +1,18 @@
+//- short article
+
+mixin shortArticle(title, url, htmlContent, datestring, tags)
+  .stripe.content
+    .stripe-column
+      .row
+        .span2.datefield
+          code=datestring
+        .span14.cLeft
+          h3
+            a(href=url) #{title} 
+      .row
+        #content!=htmlContent
+      .row
+        .tags
+          - for (var i = 0; i < tags.length; i++)
+            .tag.blockybutton
+              a(href=tags[i].url,title='posts about "' + tags[i].name + '"') #{tags[i].name}
