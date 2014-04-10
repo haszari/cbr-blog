@@ -1,28 +1,17 @@
 //- layout for a "tag page", i.e. all posts for a given tag
 
-//- tag cloud not being used at the moment, a relic
-  #tag-cloud.container
-    section.cloud
-      ul
-        - for (var i in tags)
-          li
-            span(style="font-size:"+tags[i]+"px;")
-              a(href="/tag/" + i + ".html")=i
-              
+include short-article
+
+//- tag at top of page 
 .container.content.stripe#article-list
   section.stripe-column#article
     .page-header
       .tag 
         h1 #{meta.headline} 
+
+//- list of articles so tagged
+.container#article-list
+  section.stripe-column#article
   - for (var i = 0; i < list.length; i++) 
-    .container.content.stripe
-      .stripe-column
-        .row
-          .span2.datefield
-            code=list[i].datestring
-          .span14.cLeft
-            h3.headline
-              a(href=list[i].url,title=list[i].name) #{list[i].name} 
-        .row
-          .offset2.span14.cLeft
-            #content!=list[i].excerpt          
+    +shortArticle(list[i].name, list[i].url, list[i].html, list[i].datestring, list[i].tags)
+    

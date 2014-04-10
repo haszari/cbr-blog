@@ -4,7 +4,7 @@
 
 include short-article
 
-.containerhome#article-list
+.container#article-list
   section.stripe-column#article
   - for (var i = 0; i < list.length; i++) 
     +shortArticle(list[i].name, list[i].url, list[i].html, list[i].datestring, list[i].tags)
