@@ -113,32 +113,6 @@ h5 a {
    float: right;
 }
 
-/** mobile support **/
-
-@media (max-width: 800px) {
-  .menu {
-    font-size: 30px;
-  }
-  .menu .primary a {
-    padding-right: 30px;
-  }
-  .menu .secondary a {
-    padding-left: 30px;
-  }
-}
-
-@media (max-width: 400px) {
-  .menu {
-    font-size: 18px;
-  }
-  .menu .primary a {
-    padding-right: 18px;
-  }
-  .menu .secondary a {
-    padding-left: 18px;
-  }
-}
-
 /** POSTS **/
 
 /* post images */ 
@@ -191,6 +165,38 @@ h5 a {
 /* hide edity stuff for now */
 #articlePublished, #articleTags {
    display: none;
+}
+
+/** MOBILE SUPPORT **/
+
+@media (max-width: 800px) {
+  .menu {
+    font-size: 30px;
+  }
+  .menu .primary a {
+    padding-right: 30px;
+  }
+  .menu .secondary a {
+    padding-left: 30px;
+  }
+}
+
+@media (max-width: 500px) {
+  .stripe.content img {
+    width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  .menu {
+    font-size: 18px;
+  }
+  .menu .primary a {
+    padding-right: 18px;
+  }
+  .menu .secondary a {
+    padding-left: 18px;
+  }
 }
 
 /** POST TAGS **/
