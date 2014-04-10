@@ -76,6 +76,11 @@ h5 a {
    padding: 0;
 }
 
+.stripe-column>* {
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
 /** MENU **/ 
 
 /* menu font */
@@ -106,6 +111,32 @@ h5 a {
 /* secondary on right */
 .menu .secondary {
    float: right;
+}
+
+/** mobile support **/
+
+@media (max-width: 800px) {
+  .menu {
+    font-size: 30px;
+  }
+  .menu .primary a {
+    padding-right: 30px;
+  }
+  .menu .secondary a {
+    padding-left: 30px;
+  }
+}
+
+@media (max-width: 400px) {
+  .menu {
+    font-size: 18px;
+  }
+  .menu .primary a {
+    padding-right: 18px;
+  }
+  .menu .secondary a {
+    padding-left: 18px;
+  }
 }
 
 /** POSTS **/
@@ -145,11 +176,6 @@ h5 a {
 }
 .stripe.content a {
    color: white;
-}
-
-.stripe-column>* {
-  margin-left: 6px;
-  margin-right: 6px;
 }
 
 .stripe.content:nth-child(3n+0) {
