@@ -268,16 +268,16 @@ srv.all('/postid/:postId', function(req, res) {
  * @example http://semu.mp/tag/bananas
  **/
 // TODO: paging for tags 
-srv.all('/tag/:tagname', function(req, res) {
-  var tagname = req.params.tagname;
+srv.all('/tag/:taglist', function(req, res) {
+  //var tagsArray = req.params.taglist.split(/\+|\//);
+  var tagsArray = req.params.taglist.split('+');
   var hasSession = req.session.valid;
   var includeUnpublished = hasSession;
 
-  console.log(req.method, 'tag', tagname);
-  mdb.getArticlesByTag(tagname, includeUnpublished, function(articles) {
+  console.log(req.method, 'tag', tagsArray);
+  mdb.getArticlesByTag(tagsArray, includeUnpublished, function(articles) {
     mdb.setMeta('url', mdb.getDefault('url') + req.url);
-    //mdb.setMeta('title', 'Tag: ' + tagname);
-    mdb.setMeta('headline', tagname);  
+    mdb.setMeta('headline', tagsArray);  
     mdb.setMeta('current', 'posts');
     
     res.render('posts', mdb.jadeData({list: articles}, req));

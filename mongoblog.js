@@ -367,12 +367,12 @@ exports.getArticleById = function(idHex, includeUnpublished, callback) {
  * @param string $tap
  * @return array via callback
  **/
-exports.getArticlesByTag = function(tag, includeUnpublished, callback) {
+exports.getArticlesByTag = function(tagsArray, includeUnpublished, callback) {
   var articles = [];
   var err = '';
   var blogEngine = this;
 
-  var options = { query: { 'tags' : { $in: [tag] } }, includeDrafts: includeUnpublished };
+  var options = { query: { 'tags' : { $all: tagsArray } }, includeDrafts: includeUnpublished };
 
   getArticlesFromMongo(options, function(items, err) {
     if(err) { return console.dir(err); callback(articles, err) };
