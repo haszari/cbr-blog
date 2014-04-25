@@ -1,23 +1,27 @@
 var mdb = require('./mongoblog');
 var Feed = require('feed'); 
+var util = require('util');
 
 /**
  * Load config JSON file
  **/
 var config = JSON.parse(require('fs').readFileSync(__dirname + '/config.json','utf8'));
+if (!util.isArray(config.host)) {
+  config.host = [config.host];
+}
 
 /**
  * Set default category and set default URL
  **/
 mdb.setDefault('category', 'General');
-mdb.setDefault('url', 'http://' + config.host + (config.port == '80' ? '' : ':' + config.port));
+mdb.setDefault('url', 'http://' + config.host[0] + (config.port == '80' ? '' : ':' + config.port));
 
 /**
  * Set basic variables passed to jade template
  **/
  
 mdb.setMeta('site', config.siteName); 
-mdb.setMeta('url', 'http://' + config.host);
+mdb.setMeta('url', 'http://' + config.host[0]);
 mdb.setMeta('author', config.author);
 mdb.setMeta('disqus', config.disqus);
 
@@ -125,7 +129,7 @@ srv.all('/feed', function(req, response) {
     // add feed articles
     for(var i=0; i<articles.length; i++) {
       console.log(i, articles[i].date.getUTCFullYear(), articles[i].name);
-      feed.item({
+      feed.addItem({
           title:          articles[i].name,
           link:           mdb.getDefault('url') + articles[i].url,
           description:    articles[i].html,
