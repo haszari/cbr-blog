@@ -1,14 +1,15 @@
 {
-  "author": "semu <c@semu.mp> (http://github.com/semu)",
+  "author": "haszari <drongo@cartoonbeats.com> (http://github.com/haszari)",
   "name": "node-blog",
-  "description": "Markdown Blog with twitter bootstrap UI and ace editor for composing…",
-  "version": "0.0.7",
-  "homepage": "https://github.com/semu/node-blog",
+  "description": "Simple markdown blog engine with mongodb storage & ace editor for composing posts.",
+  "version": "0..5",
+  "homepage": "https://github.com/haszari/drongo",
   "contributors": [ 
-    { "name": "Sebastian Müller", "email": "c@semu.mp" }],
+    { "name": "Sebastian Müller", "email": "c@semu.mp" },
+    { "name": "Rua Haszard Morris", "email": "drongo@cartoonbeats.com" }],
   "repository": {
     "type": "git",
-    "url": "git://github.com/semu/node-blog.git"
+    "url": "git://github.com/haszari/drongo.git"
   },
   "engines": {
     "node": ">= 0.4.10"
