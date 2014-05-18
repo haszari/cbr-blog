@@ -81,6 +81,10 @@ h5 a {
   margin-right: 6px;
 }
 
+.pull-right {
+  float: right;
+}
+
 /** MENU **/ 
 
 /* menu font */
@@ -111,6 +115,87 @@ h5 a {
 /* secondary on right */
 .menu .secondary {
    float: right;
+}
+
+/** MODALS **/
+
+.modal {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  color: white;
+
+  /* menu font */
+  .modal-header {
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 700;
+    font-size: 40px;
+    text-transform: uppercase;
+    font-style: italic;
+  }
+
+  .modal-close {
+    float: right;
+    color: white;
+  }
+
+  .modal-wrapper {
+    margin: auto;
+    width: 500px;
+    padding: 4px 22px 22px;
+    border-radius: 0px 0px 8px 8px;
+    background-color: #245;
+  }
+
+  .modal-body {
+    font-size: 26px;
+  }
+
+  .modal-body fieldset {
+    border-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .modal-body .clearfix {
+    margin: 10px 0px;
+  }
+
+  .modal-body label {
+    display: inline-block;
+    width: 150px;
+  }
+
+  .modal-body .input {
+    display: inline-block;
+    width: 346px;
+  }
+
+  .modal-body .input input {
+    width: 350px;
+    border-style: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: 26px;
+    border-radius: 2px;
+  }
+
+  .modal-footer {
+    height: 62px;
+  }
+  .modal-footer button {
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 700;
+    font-size: 40px;
+    text-transform: uppercase;
+    font-style: italic;
+    margin: 4px 0;
+    border-radius: 2px;
+    border-style: none;
+    background: #181419;
+    color: white;
+    padding: 1px 18px;
+  }
+
 }
 
 /** POSTS **/

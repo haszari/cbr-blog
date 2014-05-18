@@ -78,51 +78,50 @@ html(lang="en",xmlns="http://www.w3.org/1999/xhtml",xmlns:og="http://ogp.me/ns#"
     .content!= body
     //- special modal popups that are hidden by default
     #logindata.content.modal.hide.fade
-      .modal-header
-        a.close(href="#") &times;
-        h3 Authentication Required!
-      .modal-body
-        form
-          fieldset
-            .clearfix
-              label(for="uname") Username
-              .input
-                input#uname.xlarge(type="text")
-            .clearfix
-              label(for="pword") Password
-              .input
-                input#pword.xlarge(type="password")                
-      .modal-footer
-        input#authenticate.pull-right.btn.primary(type="submit", value="Login")
-        span.pull-right#loginstatus.loader
-          img(src="/loader.gif")
+      .modal-wrapper
+        .modal-header
+          .modal-close(href="#") &times;
+          .modal-title Login
+        .modal-body
+          form
+            fieldset
+              .clearfix
+                label(for="uname") Username
+                .input
+                  input#uname.xlarge(type="text")
+              .clearfix
+                label(for="pword") Password
+                .input
+                  input#pword.xlarge(type="password")                
+        .modal-footer
+          button#authenticate.pull-right.btn.primary(type="submit") Login
     //- compose popup - this is in use but needs work
     #composemodal.content.modal.hide.fade
-      .modal-header
-        a.close(href="#") &times;
-        h3 Compose Article
-      .modal-body
-        form
-          fieldset
-            .clearfix
-              label(for="ntitle") Headline
-              .input
-                input#ntitle.xlarge(type="text")    
-            .clearfix
-              label(for="newSlug") Slug (optional)
-              .input
-                input#newSlug.xlarge(type="text","readonly"="readonly")
-      .modal-footer
-        input#composecreate.pull-right.btn.primary(type="submit", value="Create")
-        span.pull-right#composestatus.loader
-          img(src="/loader.gif")
+      .modal-wrapper
+        .modal-header
+          a.close(href="#") &times;
+          h3 Compose Article
+        .modal-body
+          form
+            fieldset
+              .clearfix
+                label(for="ntitle") Headline
+                .input
+                  input#ntitle.xlarge(type="text")    
+              .clearfix
+                label(for="newSlug") Slug (optional)
+                .input
+                  input#newSlug.xlarge(type="text","readonly"="readonly")
+        .modal-footer
+          button#composecreate.pull-right.btn.primary(type="submit") Create Post
     //- drafts popup - I'm not using this   
     #draftsmodal.content.modal.hide.fade
-      .modal-header
-        a.close(href="#") &times;
-        h3 Unpublished Drafts
-      .modal-body.loading-body
-        p
-          img(src="/loader-big.gif")
-      .modal-footer
-        input#composecreate.pull-right.btn(type="button", value="close")
+      .modal-wrapper
+        .modal-header
+          a.close(href="#") &times;
+          h3 Unpublished Drafts
+        .modal-body.loading-body
+          p
+            img(src="/loader-big.gif")
+        .modal-footer
+          button#composecreate.pull-right.btn(type="button") Close
