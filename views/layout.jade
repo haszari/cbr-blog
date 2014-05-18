@@ -99,8 +99,8 @@ html(lang="en",xmlns="http://www.w3.org/1999/xhtml",xmlns:og="http://ogp.me/ns#"
     #composemodal.content.modal.hide.fade
       .modal-wrapper
         .modal-header
-          a.close(href="#") &times;
-          h3 Compose Article
+          .modal-close(href="#") &times;
+          .modal-title New
         .modal-body
           form
             fieldset
@@ -109,17 +109,17 @@ html(lang="en",xmlns="http://www.w3.org/1999/xhtml",xmlns:og="http://ogp.me/ns#"
                 .input
                   input#ntitle.xlarge(type="text")    
               .clearfix
-                label(for="newSlug") Slug (optional)
+                label(for="newSlug") Slug
                 .input
-                  input#newSlug.xlarge(type="text","readonly"="readonly")
+                  input#newSlug.xlarge(type="text")
         .modal-footer
           button#composecreate.pull-right.btn.primary(type="submit") Create Post
     //- drafts popup - I'm not using this   
     #draftsmodal.content.modal.hide.fade
       .modal-wrapper
         .modal-header
-          a.close(href="#") &times;
-          h3 Unpublished Drafts
+          .modal-close(href="#") &times;
+          .modal-title Drafts
         .modal-body.loading-body
           p
             img(src="/loader-big.gif")

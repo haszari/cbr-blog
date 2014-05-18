@@ -85,7 +85,7 @@ $(document).ready(function() {
 
   /** Add Events to Administration Menu Items **/  
   if ($('#buttoncompose, #buttondrafts, #login').length > 0) {
-    $('#buttoncompose').click(function(e) { e.preventDefault(); if (!auth) { showLogin('compose'); } else { $('#composemodal').modal('show'); $('#ntitle').focus(); }});
+    $('#buttoncompose').click(function(e) { e.preventDefault();  $('#composemodal').modal('show'); $('#ntitle').focus(); });
     $('#buttondrafts').click(function(e) { e.preventDefault(); if (!auth) { showLogin('drafts'); } else { $('#draftsmodal').modal('show'); loadDrafts(); }});
     $('#login').click(function(e) { e.preventDefault(); showLogin(); });
     $('#logout').click(function(e) { e.preventDefault(); $.post("/api/logout", { }, function(data) { location.reload(); }); } );

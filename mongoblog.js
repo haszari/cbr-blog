@@ -245,6 +245,12 @@ exports.createNewArticle = function(name, slug, callback) {
 
     var collection = db.collection('cbr_content');
     collection.insert(mongoRecord, function(err, docs) {
+      console.log('called back from insert', docs);
+
+      if (err) {
+        console.log(err);
+      }
+
       if (docs.length == 1 && !err) {
         var doc = docs[0];
         var idHex = doc._id.toHexString();
