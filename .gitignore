@@ -22,3 +22,5 @@ markdown/3150-yahoo.md
 .smbdeleteAAA6b9f4.4
 
 logs/*
+
+npm-debug.log
