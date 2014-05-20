@@ -244,15 +244,16 @@ exports.createNewArticle = function(name, slug, callback) {
   {
 
     var collection = db.collection('cbr_content');
-    collection.insert(mongoRecord, function(err, docs) {
-      console.log('called back from insert', docs);
+    collection.insert(mongoRecord, function(err, doc) {
+      console.log('called back from insert', doc);
 
       if (err) {
         console.log(err);
       }
 
-      if (docs.length == 1 && !err) {
-        var doc = docs[0];
+      //if (docs.length == 1 && !err) {
+      if (doc && !err) {
+        //var doc = docs[0];
         var idHex = doc._id.toHexString();
         checkSlug(idHex, doc.slug, collection);
         articleUrl = "/postid/" + idHex;
