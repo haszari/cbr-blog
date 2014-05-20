@@ -245,12 +245,12 @@ exports.createNewArticle = function(name, slug, callback) {
 
     var collection = db.collection('cbr_content');
     collection.insert(mongoRecord, function(err, doc) {
-      console.log('called back from insert', doc);
 
       if (err) {
         console.log(err);
       }
 
+      // apparently the mongo.insert api now returns a single record?
       //if (docs.length == 1 && !err) {
       if (doc && !err) {
         //var doc = docs[0];
