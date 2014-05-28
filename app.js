@@ -33,8 +33,17 @@ mdb.setMongoConnectionString(config.mongoConnectionString);
 
 /**
  * Start express.js http servr with kickstart (more: http://semu.mp/node-kickstart.html)
+
  **/
-var kickstart = require('./kickstart').withConfig({'name': config.host, 'port': config.port, 'path': __dirname});
+var kickstartConfig = {
+  'name': config.host, 
+  'port': config.port, 
+  'path': __dirname
+};
+if (config.subsites) {
+  kickstartConfig.subsites = config.subsites;
+}
+var kickstart = require('./kickstart').withConfig(kickstartConfig);
 var srv = kickstart.srv();
 
 /**

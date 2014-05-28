@@ -3,6 +3,7 @@ var express = require("express");
 var cons = require('consolidate');
 var connect = require("connect");
 var kickstart = {'conf' : {}, 'srv': {}};
+var subsite_apps = [];
 //var expressApp = express();
 
 /* Compress generated less files  
@@ -68,6 +69,17 @@ exports.listen = function() {
   }
   else {
     router.use(connect.vhost(kickstart.conf.name, kickstart.srv));
+  }
+
+  // set up vhost static sub site(s)
+  if (util.isArray(kickstart.conf.subsites)) {
+    kickstart.conf.subsites.forEach(function(subsite_config) {
+      if (!subsite_config.host || !subsite_config.folder) return;
+      var app = express.createServer();
+      app.use(express.static(subsite_config.folder));
+      subsite_apps.push(app);
+      router.use(connect.vhost(subsite_config.host, app));
+    });
   }
 
   router.use(express.cookieParser());
