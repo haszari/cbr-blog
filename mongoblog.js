@@ -20,7 +20,7 @@ app = {
   'default':      {}, 
   'mapping':      {}, 
   'mongoConnectionString': "mongodb://127.0.0.1:27017/",
-  'md':           require('markdown').markdown, 
+  'marked':       require('marked'), 
   'admin':        [], 
   'articlesPerPage': 11
 }, 
@@ -435,15 +435,17 @@ exports.getArticles = function(pageNumber, includeUnpublished, callback) {
 };
 
 /**
- * Parse markdown to HTML
+ * Parse markdown to HTML - using markdown-js lib
+ * @param string data
+ * @return string
+ **/
+/**
+ * Parse markdown to HTML - using marked lib
  * @param string data
  * @return string
  **/
 exports.markdownToHTML = function(data) {
-  data = this.md.toHTML(data).replace(/<pre><code>/gi, '<pre>').replace(/<\/code><\/pre>/gi, '</pre>');
-  data = data.replace(/<pre>/gi, '<pre class="prettyprint">').replace(/<p><img/g, '<p class="img"><img');
-  data = data.replace(/\[\-MORE\-\]/gi, '');
-  return data;
+  return this.marked(data);
 };
 
 /**
