@@ -2,7 +2,7 @@
   "author": "haszari <drongo@cartoonbeats.com> (http://github.com/haszari)",
   "name": "node-blog",
   "description": "Simple markdown blog engine with mongodb storage & ace editor for composing posts.",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "homepage": "https://github.com/haszari/drongo",
   "contributors": [ 
     { "name": "Sebastian Müller", "email": "c@semu.mp" },
