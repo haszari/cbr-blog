@@ -37,7 +37,7 @@ body {
 
 /* colours */
 .menu.stripe, .menu a { 
-   background-color: black;
+   background-color: white;
    color: white;
 }
 a {
@@ -98,7 +98,13 @@ h5 a {
 
 /* no underline for menu links */
 .menu a {
-   text-decoration: none;
+  text-decoration: none;
+  height: 60px;
+  width: 60px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  background-image: url('../img/cbr_icons.png');
+  background-size: cover;
 }
 
 /* menu things are not full width */
@@ -107,15 +113,33 @@ h5 a {
 }
 
 .menu .primary a {
-   padding-right: 40px;
+  margin-right: 40px;
 }
 .menu .secondary a {
-   padding-left: 40px;
+   margin-left: 40px;
 }
 /* secondary on right */
 .menu .secondary {
    float: right;
 }
+
+// menu icons
+.menuIcon.home {
+  background-position-x: 0px;
+}
+.menuIcon.tags {
+  background-position-x: -90px;
+}
+.menuIcon.releases {
+  background-position-x: -178px;
+}
+.menuIcon.compose {
+  background-position-x: -388px;
+}
+.menuIcon.login, .menuIcon.logout {
+  background-position-x: -477px;
+}
+
 
 /** MODALS **/
 
