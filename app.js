@@ -2,6 +2,8 @@ var mdb = require('./mongoblog');
 var Feed = require('feed'); 
 var util = require('util');
 
+var drongoPackageMetadata = require('./package.json');
+
 /**
  * Load config JSON file
  **/
@@ -67,6 +69,19 @@ srv.all('*', function(req, res, next) {
   if (req.session && req.session.valid) {
     req.isAdmin = true; } else { req.isAdmin = false; }
   next();
+});
+
+
+/**
+ * about/info/version handler
+ **/
+srv.get('/api/about', function(req, res) {
+  var aboutInfo = {
+    site: config.siteName,
+    description: config.description,
+    drongoVersion: drongoPackageMetadata.version
+  };
+  return res.end(JSON.stringify(aboutInfo)); 
 });
 
 /**
