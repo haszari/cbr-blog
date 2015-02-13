@@ -1,6 +1,10 @@
 /* init.js */
 function showLogin() { $('#logindata').modal('show'); $('#uname').focus(); }
 
+function hideLogin() { $('#logindata').modal('hide'); }
+
+function toggleLoginForm() { $('#logindata').modal('toggle'); }
+
 function loadDrafts() {
   $.post("/api/drafts", {}, function(data) {
     $('#draftsmodal .modal-body').removeClass('loading-body');
@@ -85,11 +89,15 @@ $(document).ready(function() {
 
   /** Add Events to Administration Menu Items **/  
   if ($('#buttoncompose, #buttondrafts, #login').length > 0) {
+
     $('#buttoncompose').click(function(e) { e.preventDefault();  $('#composemodal').modal('show'); $('#ntitle').focus(); });
     $('#buttondrafts').click(function(e) { e.preventDefault(); if (!auth) { showLogin('drafts'); } else { $('#draftsmodal').modal('show'); loadDrafts(); }});
-    $('#login').click(function(e) { e.preventDefault(); showLogin(); });
+    $('#login').click(function(e) { e.preventDefault(); toggleLoginForm(); });
     $('#logout').click(function(e) { e.preventDefault(); $.post("/api/logout", { }, function(data) { location.reload(); }); } );
-    
+
+    $('#composemodal a.modal-close').click(function() { $('#composemodal').modal('hide'); })
+    $('#logindata a.modal-close').click(function() { hideLogin(); })
+
     /** Create Article Handling **/
     $('#composecreate').click(function(e) {
       e.preventDefault();      
