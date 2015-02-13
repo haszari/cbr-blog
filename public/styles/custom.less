@@ -111,7 +111,7 @@ h5 a {
   width: 44px;
   margin-top: 12px;
   background-image: url('../img/cbr_menu_icons.svg');
-  background-size: cover;
+  background-size: 1200%; /* there are 12 slots in my sprite */ 
 }
 
 /* menu things are not full width */
@@ -132,19 +132,19 @@ h5 a {
 
 // menu icons
 .menuIcon.home {
-  background-position-x: 0px;
+  background-position-x: 0%;
 }
 .menuIcon.tags {
-  background-position-x: -88px;
+  background-position-x: -200%;
 }
 .menuIcon.releases {
-  background-position-x: -176px;
+  background-position-x: -400%;
 }
 .menuIcon.compose {
-  background-position-x: -352px;
+  background-position-x: -800%;
 }
 .menuIcon.login, .menuIcon.logout {
-  background-position-x: -264px;
+  background-position-x: -600%;
 }
 
 
@@ -299,32 +299,15 @@ h5 a {
 /** MOBILE SUPPORT **/
 
 @media (max-width: 800px) {
-  .menu {
-    font-size: 30px;
-  }
-  .menu .primary a {
-    padding-right: 30px;
-  }
-  .menu .secondary a {
-    padding-left: 30px;
+  .menu a {
+    height: 30px;
+    width: 30px;
   }
 }
 
 @media (max-width: 500px) {
   .stripe.content img {
     width: 100%;
-  }
-}
-
-@media (max-width: 400px) {
-  .menu {
-    font-size: 18px;
-  }
-  .menu .primary a {
-    padding-right: 18px;
-  }
-  .menu .secondary a {
-    padding-left: 18px;
   }
 }
 
