@@ -42,13 +42,13 @@ html(lang="en",xmlns="http://www.w3.org/1999/xhtml",xmlns:og="http://ogp.me/ns#"
         //- a(href="/").logo &nbsp;
         .primary
           a.menuIcon.home(href="/",title="Home") 
-          a.menuIcon.tags(href="/",title="Tags") 
-          a.menuIcon.releases(href="/",title="Releases") 
+          a.menuIcon.tags(href="/tags",title="Tags") 
+          a.menuIcon.releases(href="/tag/newsrelease",title="Releases") 
           //- these are coming soon - I need to implement a tag cloud ish page and other stuff like about as needed
             a(href="/") About
         .secondary
           - if (session.valid) 
-            a#buttoncompose.menuIcon.compose(href="/",title="Compose") 
+            a#buttoncompose.menuIcon.compose(href="/",title="New") 
             a#logout.menuIcon.logout(href="/",title="Logout") 
               //- placeholder, I need to implement logout!!
           - else
