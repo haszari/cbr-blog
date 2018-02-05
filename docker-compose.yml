@@ -1,0 +1,19 @@
+version: '3'
+
+services: 
+
+   mongo: 
+      image: 'mongo:3.4'
+      restart: always
+
+   drongo: 
+      build: ./
+      restart: always
+      depends_on: 
+         - 'mongo'
+      environment: 
+         - MONGO_HOST=mongo
+      ports: 
+         - '127.0.0.1:8556:8556' 
+      volumes:
+         - ./:/usr/src/app
