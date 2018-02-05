@@ -60,9 +60,9 @@ html(lang="en",xmlns="http://www.w3.org/1999/xhtml",xmlns:og="http://ogp.me/ns#"
       .stripe-column
         //- a(href="/").logo &nbsp;
         .primary
-          a.menuIcon.home(href="/",title="Home") 
+          a.menuIcon.releases(href="http://cartoonbeats.com",title="Music") 
+          a.menuIcon.blog(href="/",title="Blog") 
           a.menuIcon.tags(href="/tags",title="Tags") 
-          a.menuIcon.releases(href="/tag/newsrelease",title="Releases") 
           //- these are coming soon - I need to implement a tag cloud ish page and other stuff like about as needed
             a(href="/") About
         .secondary
@@ -71,7 +71,7 @@ html(lang="en",xmlns="http://www.w3.org/1999/xhtml",xmlns:og="http://ogp.me/ns#"
             a#logout.menuIcon.logout(href="/",title="Logout") 
               //- placeholder, I need to implement logout!!
           - else
-            a#login.menuIcon.login(href="/",title="login") 
+            a#login.menuIcon.hidden.login(href="/",title="login") 
         //- section#navigation //- note this is a block comment .. nestedness, whitespace
           .topbar-wrapper(style="z-index: 5;")
             .topbar(data-dropdown="dropdown")
