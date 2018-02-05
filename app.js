@@ -31,6 +31,7 @@ mdb.setMeta('disqus', config.disqus);
 mdb.addLogin(config.admin);
 
 // set mongo db connection info
+// (note config file has docker compose mongo container name hard-coded)
 mdb.setMongoConnectionString(config.mongoConnectionString);
 
 /**
@@ -325,6 +326,8 @@ srv.all('/tag/:taglist', function(req, res) {
  * @example http://semu.mp/ 
  **/
 srv.all('/', function(req, res) {
+console.log('dicknuckl');
+
   var hasSession = req.session.valid;
   var includeUnpublished = hasSession;
 
